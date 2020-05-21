@@ -27,9 +27,12 @@ public class PastaParticleControler : MonoBehaviour
             float step = speed * Time.deltaTime;
             this.transform.position = Vector2.MoveTowards(this.transform.position, AssemblyLineMachinesRoute[currentTargetPointer].transform.position, step);
         }
-        else
+        else if (AssemblyLineMachinesRoute[currentTargetPointer].CompareTag("Destroyer"))
         {
-            //TODO jakieś pracki na maszynie czekanie pierdoły
+            AssemblyLineMachinesRoute[currentTargetPointer].GetComponent<Destroyer>().DestroyPastaParticle(this.gameObject);
+        }
+        else if(AssemblyLineMachinesRoute[currentTargetPointer].CompareTag("Maszyna"))
+        {
             //TODO dodać Brrr 
 
             AssemblyLineMachinesRoute[currentTargetPointer].GetComponent<Machine>().AddToPastaQueue(this.gameObject);

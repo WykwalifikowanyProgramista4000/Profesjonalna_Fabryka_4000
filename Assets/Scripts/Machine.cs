@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Timers;
+using TMPro;
 using UnityEngine;
 
 
@@ -15,6 +16,7 @@ public class Machine : MonoBehaviour
     [SerializeField] private Vector2 nextQueuedParticleOffset = new Vector2(0, 0.25f);
 
     private Timer workTimer;
+    private Brrr brrr;
     
     public Queue<GameObject> pastaQueue = new Queue<GameObject>();
     public PastaParticleControler currentryWorkedOnPastaParticle;
@@ -37,6 +39,8 @@ public class Machine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        brrr = GetComponentInChildren<Brrr>();
+
         workTimer = new Timer(_processingTime);
         workTimer.Enabled = true;
         workTimer.Stop();
@@ -51,9 +55,11 @@ public class Machine : MonoBehaviour
         {
             DoWork();
         }
+
+        brrr.GetComponent<SpriteRenderer>().enabled = _isWorking;
     }
 
-
+    #region Methods
     private void DoWork()
     {
         _isWorking = true;
@@ -78,13 +84,7 @@ public class Machine : MonoBehaviour
         return temp;
     }
 
-    public void AddToPastaQueue(GameObject pastaParticle)
-    {
-        pastaQueue.Enqueue(pastaParticle);
-        ArrangeQueue();
-    }
-
-    void ArrangeQueue()
+    private void ArrangeQueue()
     {
         Vector2 machinePosition = this.transform.position;
         machinePosition += queueBegginingOffset;
@@ -98,6 +98,13 @@ public class Machine : MonoBehaviour
         }
 
     }
+
+    public void AddToPastaQueue(GameObject pastaParticle)
+    {
+        pastaQueue.Enqueue(pastaParticle);
+        ArrangeQueue();
+    }
+    #endregion
 }
 
 
