@@ -6,29 +6,18 @@ public class PastaParticleControler : MonoBehaviour
 {
     [SerializeField] private float speed = 2;
     [SerializeField] private int currentTargetPointer = 1;
-    [SerializeField] private bool _movementToggle = true;
 
+    public bool movementToggle = true;
     public List<GameObject> AssemblyLineMachinesRoute = new List<GameObject>();
 
     void Start()
     {
-        //this.transform.position = AssemblyLineMachinesRoute[0].transform.position;
         currentTargetPointer = 0;
     }
 
     void Update()
     {
-        if (_movementToggle) GoToMachine();
-    }
-
-    public void LetsFuckingGoBaby()
-    {
-        _movementToggle = true;
-    }
-
-    public void LetsFuckingStopBaby()
-    {
-        _movementToggle = false;
+        if (movementToggle) GoToMachine();
     }
 
     private void GoToMachine()
@@ -45,7 +34,7 @@ public class PastaParticleControler : MonoBehaviour
 
             AssemblyLineMachinesRoute[currentTargetPointer].GetComponent<Machine>().AddToPastaQueue(this.gameObject);
             currentTargetPointer++;
-            _movementToggle = false;
+            movementToggle = false;
         }
     }
 

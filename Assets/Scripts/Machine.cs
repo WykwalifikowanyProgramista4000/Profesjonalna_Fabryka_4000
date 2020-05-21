@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class Machine : MonoBehaviour
 {
+    #region Properties
     [SerializeField] private float _processingTime = 4000;
     [SerializeField] private bool _isWorking = false;
     [SerializeField] private Vector2 queueBegginingOffset = new Vector2(0, 0.25f);
@@ -17,7 +18,9 @@ public class Machine : MonoBehaviour
     
     public Queue<GameObject> pastaQueue = new Queue<GameObject>();
     public PastaParticleControler currentryWorkedOnPastaParticle;
+    #endregion
 
+    #region Get/Set
     public float ProcessingTime
     {
         get
@@ -29,15 +32,16 @@ public class Machine : MonoBehaviour
             _processingTime = value * 1000;
         }
     }
-
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         workTimer = new Timer(_processingTime);
-        workTimer.Elapsed += SendToNextMachine;
         workTimer.Enabled = true;
         workTimer.Stop();
+
+        workTimer.Elapsed += SendToNextMachine;
     }
 
     // Update is called once per frame
@@ -63,7 +67,7 @@ public class Machine : MonoBehaviour
     private void SendToNextMachine(object source, ElapsedEventArgs e)
     {
         workTimer.Stop();
-        currentryWorkedOnPastaParticle.LetsFuckingGoBaby();
+        currentryWorkedOnPastaParticle.movementToggle = true;
         _isWorking = false;
     }
 
