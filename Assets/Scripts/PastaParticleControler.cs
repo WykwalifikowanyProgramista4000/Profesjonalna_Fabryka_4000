@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ public class PastaParticleControler : MonoBehaviour
 {
     [SerializeField] private float speed = 2;
     [SerializeField] private int currentTargetPointer = 1;
+    [SerializeField] private int flawThreshold = 10; //ilość uszkodzonych w procentach
+    [SerializeField] private bool isBroken = false;
 
     public bool movementToggle = true;
     public List<GameObject> AssemblyLineMachinesRoute = new List<GameObject>();
@@ -13,11 +16,16 @@ public class PastaParticleControler : MonoBehaviour
     void Start()
     {
         currentTargetPointer = 0;
+        System.Random random = new System.Random();
+        int particleBrokenRanodmizer = random.Next(0, 100);
+        if (particleBrokenRanodmizer < flawThreshold) isBroken = true;
     }
 
     void Update()
     {
         if (movementToggle) GoToMachine();
+        if (isBroken) GetComponent<SpriteRenderer>().color = Color.red; //wadliwe particle przedstawione na czerwono
+
     }
 
     private void GoToMachine()
