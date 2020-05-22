@@ -19,7 +19,9 @@ public class Machine : MonoBehaviour
     private Brrr brrr;
     
     public Queue<GameObject> pastaQueue = new Queue<GameObject>();
-    public PastaParticleControler currentryWorkedOnPastaParticle;
+    public PastaParticleControler currentryWorkedOnPastaParticle1;
+    public PastaParticleControler currentryWorkedOnPastaParticle2;
+
     #endregion
 
     #region Get/Set
@@ -51,7 +53,7 @@ public class Machine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_isWorking == false && pastaQueue.Count > 0)
+        if (_isWorking == false && pastaQueue.Count > 1)
         {
             DoWork();
         }
@@ -63,9 +65,11 @@ public class Machine : MonoBehaviour
     private void DoWork()
     {
         _isWorking = true;
-        currentryWorkedOnPastaParticle = GetFromPastaQueue().GetComponent<PastaParticleControler>();
+        currentryWorkedOnPastaParticle1 = GetFromPastaQueue().GetComponent<PastaParticleControler>();
+        currentryWorkedOnPastaParticle2 = GetFromPastaQueue().GetComponent<PastaParticleControler>();
 
-        currentryWorkedOnPastaParticle.transform.position = this.transform.position;
+        currentryWorkedOnPastaParticle1.transform.position = this.transform.position + new Vector3(0.1f,0,0);
+        currentryWorkedOnPastaParticle2.transform.position = this.transform.position + new Vector3(-0.1f, 0, 0); ;
 
         workTimer.Start();
     }
@@ -73,7 +77,8 @@ public class Machine : MonoBehaviour
     private void SendToNextMachine(object source, ElapsedEventArgs e)
     {
         workTimer.Stop();
-        currentryWorkedOnPastaParticle.movementToggle = true;
+        currentryWorkedOnPastaParticle1.movementToggle = true;
+        currentryWorkedOnPastaParticle2.movementToggle = true;
         _isWorking = false;
     }
 
