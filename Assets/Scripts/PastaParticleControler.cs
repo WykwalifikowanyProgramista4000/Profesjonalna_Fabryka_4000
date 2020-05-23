@@ -12,11 +12,11 @@ public class PastaParticleControler : MonoBehaviour
 
     public bool movementToggle = true;
     public List<GameObject> AssemblyLineMachinesRoute = new List<GameObject>();
+    System.Random random = new System.Random();
 
     void Start()
     {
         currentTargetPointer = 0;
-        System.Random random = new System.Random();
         int particleBrokenRanodmizer = random.Next(0, 100);
         if (particleBrokenRanodmizer < flawThreshold) isBroken = true;
     }
