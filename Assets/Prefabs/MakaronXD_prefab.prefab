@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 650375487817348762}
   - component: {fileID: 650375487817348763}
   m_Layer: 0
-  m_Name: Makaron_XD
+  m_Name: MakaronXD_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,13 +91,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 650375487817348760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa6b2861a7abc5146b6aebaa72362aa7, type: 3}
+  m_Script: {fileID: 11500000, guid: 60faa93eb411f04429819200e6763e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
   currentTargetPointer: 1
-  _movementToggle: 1
-  AssemblyLineMachinesRoute:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  flawThreshold: 10
+  isBroken: 0
+  _currentTarget: {fileID: 0}
+  movementToggle: 0
