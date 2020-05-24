@@ -41,12 +41,21 @@ public class PastaParticleControler : MonoBehaviour
         }
         else if(AssemblyLineMachinesRoute[currentTargetPointer].CompareTag("Maszyna"))
         {
-            //TODO dodać Brrr 
-
             AssemblyLineMachinesRoute[currentTargetPointer].GetComponent<Machine>().AddToPastaQueue(this.gameObject);
             currentTargetPointer++;
             movementToggle = false;
         }
+        else if(AssemblyLineMachinesRoute[currentTargetPointer].CompareTag("Storehouse"))
+        {
+            //TODO jakaś animacja dodania do magazynu
+            AssemblyLineMachinesRoute[currentTargetPointer].GetComponent<ParticleStorage>().AddParticleToStorage(this.gameObject);
+            currentTargetPointer++;
+        }
+    }
+
+    public void DamageParticle()
+    {
+        isBroken = true;
     }
 
 }
