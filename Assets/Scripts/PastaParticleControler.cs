@@ -35,7 +35,7 @@ public class PastaParticleControler : MonoBehaviour
         {
             //TODO dodać Brrr 
 
-            AssemblyLineMachinesRoute[currentTargetPointer].GetComponent<Machine>().AddToPastaQueue(this.gameObject);
+            AssemblyLineMachinesRoute[currentTargetPointer].GetComponent<Machine>().AddTopastaBufferQueue(this.gameObject);
             currentTargetPointer++;
             movementToggle = false;
         }

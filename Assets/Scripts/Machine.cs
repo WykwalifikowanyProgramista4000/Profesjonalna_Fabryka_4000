@@ -21,10 +21,9 @@ public class Machine : MonoBehaviour
     private Timer workTimer;
     private Brrr brrr;
     
-    public Queue<GameObject> pastaQueue = new Queue<GameObject>();
-    public Queue<GameObject> pasta_in_machine_Queue = new Queue<GameObject>();
-    public PastaParticleControler currentryWorkedOnPastaParticle;
-    //public PastaParticleControler currentryWorkedOnPastaParticle2;
+    public Queue<GameObject> pastaBufferQueue = new Queue<GameObject>();
+    public Queue<GameObject> pastaProcessingQueue = new Queue<GameObject>();
+    
 
     #endregion
 
@@ -57,7 +56,7 @@ public class Machine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_isWorking == false && pastaQueue.Count > _throughput - 1)
+        if (_isWorking == false && pastaBufferQueue.Count > _throughput - 1)
         {
             DoWork();
         }
@@ -71,40 +70,26 @@ public class Machine : MonoBehaviour
         _isWorking = true;
         for(int i=0;i< _throughput;i++)
         {
-            currentryWorkedOnPastaParticle = GetFromPastaQueue().GetComponent<PastaParticleControler>();
-            AddToPastaInMachineQueue(currentryWorkedOnPastaParticle.gameObject);
-
-            //currentryWorkedOnPastaParticle.transform.position = this.transform.position;
+            AddToPastaInMachineQueue(GetFrompastaBufferQueue());
+            UnityEngine.Debug.Log(pastaProcessingQueue);
         }
-
-        /*for (int i = 0; i < _throughput; i++)
-        {
-            currentryWorkedOnPastaParticle = GetFromPastaInMachineQueue().GetComponent<PastaParticleControler>();
-            //currentryWorkedOnPastaParticle.transform.position = this.transform.position+new Vector3(-0.1f, 0, 0);
-        }
-
-        //currentryWorkedOnPastaParticle2.transform.position = this.transform.position + new Vector3(-0.1f, 0, 0); ;*/
         workTimer.Start();
     }
 
     private void SendToNextMachine(object source, ElapsedEventArgs e)
     {
         workTimer.Stop();
-        //currentryWorkedOnPastaParticle.movementToggle = true;
-        //currentryWorkedOnPastaParticle2.movementToggle = true;
         for(int i=0;i<_throughput;i++)
         {
-            currentryWorkedOnPastaParticle = GetFromPastaInMachineQueue().GetComponent<PastaParticleControler>();
-            UnityEngine.Debug.Log(currentryWorkedOnPastaParticle);
-            currentryWorkedOnPastaParticle.movementToggle = true;
-
+            GetFromPastaInMachineQueue().GetComponent<PastaParticleControler>().movementToggle=true;
+            UnityEngine.Debug.Log(pastaProcessingQueue);
         }
         _isWorking = false;
     }
 
-    private GameObject GetFromPastaQueue()
+    private GameObject GetFrompastaBufferQueue()
     {
-        GameObject temp = pastaQueue.Dequeue();
+        GameObject temp = pastaBufferQueue.Dequeue();
         ArrangeQueue();
         return temp;
     }
@@ -116,7 +101,7 @@ public class Machine : MonoBehaviour
 
         Vector2 offset = new Vector2();
 
-        foreach(GameObject pastaParticle in pastaQueue)
+        foreach(GameObject pastaParticle in pastaBufferQueue)
         {
             pastaParticle.transform.position = machinePosition + offset;
             offset += nextQueuedParticleOffset;
@@ -124,16 +109,15 @@ public class Machine : MonoBehaviour
 
     }
 
-    public void AddToPastaQueue(GameObject pastaParticle)
+    public void AddTopastaBufferQueue(GameObject pastaParticle)
     {
-        pastaQueue.Enqueue(pastaParticle);
+        pastaBufferQueue.Enqueue(pastaParticle);
         ArrangeQueue();
     }
 
     private GameObject GetFromPastaInMachineQueue()
     {
-        GameObject temp = pasta_in_machine_Queue.Dequeue();
-        ArrangeQueueInMachine();
+        GameObject temp = pastaProcessingQueue.Dequeue();
         return temp;
     }
 
@@ -144,7 +128,7 @@ public class Machine : MonoBehaviour
 
         Vector2 offset = new Vector2();
 
-        foreach (GameObject pastaParticle in pasta_in_machine_Queue)
+        foreach (GameObject pastaParticle in pastaProcessingQueue)
         {
             pastaParticle.transform.position = machinePosition + offset;
             offset += machinenextQueuedParticleOffset;
@@ -154,7 +138,7 @@ public class Machine : MonoBehaviour
 
     public void AddToPastaInMachineQueue(GameObject pastaParticle)
     {
-        pasta_in_machine_Queue.Enqueue(pastaParticle);
+        pastaProcessingQueue.Enqueue(pastaParticle);
         ArrangeQueueInMachine();
     }
 
