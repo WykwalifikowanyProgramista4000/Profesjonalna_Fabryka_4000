@@ -484,6 +484,11 @@ PrefabInstance:
       propertyPath: maxStorageCapacity
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 773950333373972548, guid: e749168f847451e499a4ad10c073ce14,
+        type: 3}
+      propertyPath: throughput
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3167167552308625443, guid: e749168f847451e499a4ad10c073ce14,
         type: 3}
       propertyPath: m_Name
