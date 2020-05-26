@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Maszyna
   - Destroyer
+  - Storehouse
   layers:
   - Default
   - TransparentFX

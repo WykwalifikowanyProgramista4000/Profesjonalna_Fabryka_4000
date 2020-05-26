@@ -8,27 +8,29 @@ public class PastaParticle : MonoBehaviour
     [SerializeField] private float speed = 2;
     [SerializeField] private int currentTargetPointer = 1;
     [SerializeField] private int flawThreshold = 10; //ilość uszkodzonych w procentach
-    [SerializeField] private bool isBroken = false;
 
     [SerializeField] private Queue<GameObject> _route = new Queue<GameObject>();
     [SerializeField] private GameObject _currentTarget;
+
+    private System.Random _random; 
     
-    private System.Random random = new System.Random();
-    
+    public bool isDamaged;
     public bool movementToggle;
     
     void Start()
     {
+        _random = new System.Random();
+        isDamaged = false;
         movementToggle = true;
 
-        int particleBrokenRanodmizer = random.Next(0, 100);
-        if (particleBrokenRanodmizer < flawThreshold) isBroken = true;
+        int particleBrokenRanodmizer = _random.Next(0, 100);
+        if (particleBrokenRanodmizer < flawThreshold) isDamaged = true;
     }
 
     void Update()
     {
         if (movementToggle) GoToMachine();
-        if (isBroken) GetComponent<SpriteRenderer>().color = Color.red; //wadliwe particle przedstawione na czerwono
+        if (isDamaged) GetComponent<SpriteRenderer>().color = Color.red; //wadliwe particle przedstawione na czerwono
 
     }
 
@@ -60,6 +62,11 @@ public class PastaParticle : MonoBehaviour
     {
         _route = new Queue<GameObject>(newRoute);
         _currentTarget = _route.Dequeue();
+    }
+
+    public void DamageParticle()
+    {
+        isDamaged = true;
     }
 
 }
