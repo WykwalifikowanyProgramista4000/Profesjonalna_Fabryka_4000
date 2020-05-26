@@ -23,22 +23,9 @@ public class Machine : MonoBehaviour
     
     public Queue<GameObject> pastaBufferQueue = new Queue<GameObject>();
     public Queue<GameObject> pastaProcessingQueue = new Queue<GameObject>();
-    
 
-    #endregion
+    private bool _workFinished;
 
-    #region Get/Set
-    public float ProcessingTime
-    {
-        get
-        {
-            return _processingTime;
-        }
-        set
-        {
-            _processingTime = value * 1000;
-        }
-    }
     #endregion
 
     // Start is called before the first frame update
@@ -50,40 +37,52 @@ public class Machine : MonoBehaviour
         workTimer.Enabled = true;
         workTimer.Stop();
 
-        workTimer.Elapsed += SendToNextMachine;
+        workTimer.Elapsed += OnProcessingTimeTimerElapsed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_isWorking == false && pastaBufferQueue.Count > _throughput - 1)
+        if (_workFinished & pastaProcessingQueue.Count > 0)
         {
-            DoWork();
+            _workFinished = false;
+            SendToNextMachine();
         }
 
+        if (_isWorking == false && pastaBufferQueue.Count > _throughput-1)
+        {
+            _isWorking = true;
+            DoWork();
+            workTimer.Start();
+        }
         brrr.GetComponent<SpriteRenderer>().enabled = _isWorking;
     }
+
+    
 
     #region Methods
     private void DoWork()
     {
-        _isWorking = true;
-        for(int i=0;i< _throughput;i++)
+        for(int i = 0; i < _throughput; i++)
         {
             AddToPastaInMachineQueue(GetFrompastaBufferQueue());
-            UnityEngine.Debug.Log(pastaProcessingQueue);
         }
-        workTimer.Start();
     }
 
-    private void SendToNextMachine(object source, ElapsedEventArgs e)
+    private void SendToNextMachine()
+    {
+        GameObject pastaParticle;
+        while (pastaProcessingQueue.Count > 0)
+        {
+            pastaParticle = pastaProcessingQueue.Dequeue();
+            pastaParticle.GetComponent<PastaParticle>().movementToggle = true;
+        }
+    }
+
+    private void OnProcessingTimeTimerElapsed(object source, ElapsedEventArgs e)
     {
         workTimer.Stop();
-        for(int i=0;i<_throughput;i++)
-        {
-            GetFromPastaInMachineQueue().GetComponent<PastaParticleControler>().movementToggle=true;
-            UnityEngine.Debug.Log(pastaProcessingQueue);
-        }
+        _workFinished = true;
         _isWorking = false;
     }
 
@@ -113,12 +112,6 @@ public class Machine : MonoBehaviour
     {
         pastaBufferQueue.Enqueue(pastaParticle);
         ArrangeQueue();
-    }
-
-    private GameObject GetFromPastaInMachineQueue()
-    {
-        GameObject temp = pastaProcessingQueue.Dequeue();
-        return temp;
     }
 
     private void ArrangeQueueInMachine()

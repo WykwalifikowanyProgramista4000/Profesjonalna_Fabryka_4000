@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Maszyna
   - Destroyer
+  - Storehouse
+  - TransportStation
   layers:
   - Default
   - TransparentFX
