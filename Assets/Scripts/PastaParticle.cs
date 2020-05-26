@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PastaParticle : MonoBehaviour
@@ -21,7 +22,7 @@ public class PastaParticle : MonoBehaviour
     {
         _random = new System.Random();
         isDamaged = false;
-        movementToggle = true;
+        movementToggle = false;
 
         int particleBrokenRanodmizer = _random.Next(0, 100);
         if (particleBrokenRanodmizer < flawThreshold) isDamaged = true;
@@ -41,10 +42,6 @@ public class PastaParticle : MonoBehaviour
             float step = speed * Time.deltaTime;
             this.transform.position = Vector2.MoveTowards(this.transform.position, _currentTarget.transform.position, step);
         }
-        else if(_currentTarget.CompareTag("Destroyer"))
-        {
-            _currentTarget.GetComponent<Destroyer>().DestroyPastaParticle(this.gameObject);
-        }
         else if(_currentTarget.CompareTag("Maszyna"))
         {
             _currentTarget.GetComponent<Machine>().AddToPastaQueue(this.gameObject);
@@ -53,6 +50,12 @@ public class PastaParticle : MonoBehaviour
             {
                 _currentTarget = _route.Dequeue();
             }
+
+            movementToggle = false;
+        }
+        else if (_currentTarget.CompareTag("Storehouse"))
+        {
+            _currentTarget.GetComponent<Storehouse>().AddParticleToStorehouse(this.gameObject);
 
             movementToggle = false;
         }

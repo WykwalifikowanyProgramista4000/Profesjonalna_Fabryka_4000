@@ -9,12 +9,12 @@ public abstract class  TransportTruck : MonoBehaviour
 {
     [SerializeField] protected float _speed = 1;
     [SerializeField] protected Location _currentLocation;
-    [SerializeField] protected bool _delieveryScheduled;
+    [SerializeField] protected bool _transportScheduled;
 
-    [SerializeField] protected GameObject _designatedTruckBase;
+    [SerializeField] protected GameObject _designatedTransportStation;
     [SerializeField] protected GameObject _designatedStorehouse;
 
-    [SerializeField] protected Queue<GameObject> _pastaParticleCargo;
+    public Queue<GameObject> pastaParticleCargo = new Queue<GameObject>();
 
     protected void DriveToMagazine()
     { 
@@ -31,14 +31,21 @@ public abstract class  TransportTruck : MonoBehaviour
 
     protected void DriveToBase()
     {
-        if (Vector2.Distance(this.transform.position, _designatedTruckBase.transform.position) > 0.01f)
+        if (Vector2.Distance(this.transform.position, _designatedTransportStation.transform.position) > 0.01f)
         {
             float step = _speed * Time.deltaTime;
-            this.transform.position = Vector2.MoveTowards(this.transform.position, _designatedTruckBase.transform.position, step);
+            this.transform.position = Vector2.MoveTowards(this.transform.position, _designatedTransportStation.transform.position, step);
         }
-        else if (_designatedTruckBase.CompareTag("TruckBase"))
+        else if (_designatedTransportStation.CompareTag("TransportStation"))
         {
             _currentLocation = Location.atTruckBase;
+            
+            while(pastaParticleCargo.Count > 0)    //TODO narazie rozpieralamy odebrane przez cieżarówkę rzeczy 
+            {
+                Destroy(pastaParticleCargo.Dequeue());
+            }
+
+            Destroy(this.gameObject);
         }
     }
 }
