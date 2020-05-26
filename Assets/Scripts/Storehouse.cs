@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 // === Workaround aby wyświetlać listy list w edytorze unity === //
 
@@ -28,9 +25,15 @@ public class Storehouse : MonoBehaviour
     [SerializeField] private int fineParticlesCounter = 0;
     [SerializeField] private int damagedParticlesCounter = 0;
     [SerializeField] private bool releaseParticle = false;
-
     [SerializeField] private bool _endStorehouse;
 
+    [Header("Buffor Queue settings")]
+    [SerializeField] private Vector2 _storageQueueStartOffset = new Vector2(0.12f, 0.21f);
+    [SerializeField] private Vector2 _storageQueueNextElementOffset = new Vector2(-0.08f, 0);
+    [SerializeField] private Vector2 _storageQueueNextRowOffset = new Vector2(0, 0.09f);
+    [SerializeField] private int _storageQueueElementsPerRow = 4;
+
+    [Header("   ")]
     [SerializeField] private List<AssemblyLineElementList> m_templateRoutesForPastaParticle = new List<AssemblyLineElementList>();
     private List<Queue<GameObject>> _templateRoutesForPastaParticle = new List<Queue<GameObject>>();
 
@@ -55,7 +58,7 @@ public class Storehouse : MonoBehaviour
     {
         particle.GetComponent<PastaParticle>().movementToggle = false;
 
-        if(storageQueue.Count < maxStorageCapacity)
+        if (storageQueue.Count < maxStorageCapacity)
         {
             storageQueue.Enqueue(particle);
             IncrementParticlesCounter(particle);
@@ -72,19 +75,24 @@ public class Storehouse : MonoBehaviour
     public void ReleaseParticlesToAssemblyLine(int routeId, int particleQuantity = 1)
     {
         releaseParticle = false;
-        if(particleQuantity <= storageQueue.Count)
+        if (particleQuantity <= storageQueue.Count)
         {
             for (int i = 0; i < particleQuantity; i++)
             {
                 GameObject releasedParticle = storageQueue.Dequeue();
 
-                    releasedParticle.GetComponent<PastaParticle>().SetRoute(_templateRoutesForPastaParticle[routeId]);
-                    releasedParticle.GetComponent<PastaParticle>().movementToggle = true;
+                releasedParticle.GetComponent<PastaParticle>().SetRoute(_templateRoutesForPastaParticle[routeId]);
+                releasedParticle.GetComponent<PastaParticle>().movementToggle = true;
             }
+            ArrangeQueue(storageQueue,      // pasta storage queue rearrangement
+                    _storageQueueStartOffset,
+                    _storageQueueNextElementOffset,
+                    _storageQueueNextRowOffset,
+                    4);
         }
         else
         {
-            Debug.LogWarning("Magazyn: Panie, nie mam tyle ("+ particleQuantity.ToString() +"), moge dać maksymalnie: " + storageQueue.Count.ToString());
+            Debug.LogWarning("Magazyn: Panie, nie mam tyle (" + particleQuantity.ToString() + "), moge dać maksymalnie: " + storageQueue.Count.ToString());
         }
     }
 
@@ -105,6 +113,11 @@ public class Storehouse : MonoBehaviour
                 //releasedParticle.GetComponent<PastaParticle>().SetRoute(routeToTransportTruck);
                 //releasedParticle.GetComponent<PastaParticle>().movementToggle = true;
             }
+            ArrangeQueue(storageQueue,      // pasta storage queue rearrangement
+                    _storageQueueStartOffset,
+                    _storageQueueNextElementOffset,
+                    _storageQueueNextRowOffset,
+                    4);
         }
         else
         {
@@ -141,6 +154,26 @@ public class Storehouse : MonoBehaviour
         if (storageQueue.Count == throughput)
         {
             storagePlacingOffset.y = 0;
+        }
+    }
+
+    private void ArrangeQueue(Queue<GameObject> enumerable, Vector2 startOffset, Vector2 nextElementOffset, Vector2 nextRowOffset, int elementsPerRow)
+    {
+        Vector2 baseOffset = startOffset + new Vector2(this.transform.position.x,
+                                                       this.transform.position.y);
+        int rowCount = 0;
+        int elementCount = 0;
+        foreach (GameObject pastaParticle in enumerable)
+        {
+            pastaParticle.transform.position = baseOffset +
+                                               nextRowOffset * rowCount +
+                                               nextElementOffset * elementCount;
+            elementCount++;
+            if (elementCount == elementsPerRow)
+            {
+                elementCount = 0;
+                rowCount++;
+            }
         }
     }
 

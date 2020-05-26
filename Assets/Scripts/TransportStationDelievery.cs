@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 class TransportStationDelievery : TransportStation
@@ -15,8 +11,8 @@ class TransportStationDelievery : TransportStation
 
         GameObject pastaParticle;
         Queue<GameObject> particleCargo = new Queue<GameObject>();
-        
-        for(int i =0; i < particleQuantity; i++)
+
+        for (int i = 0; i < particleQuantity; i++)
         {
             pastaParticle = Instantiate(_templatePastaParticle, this.transform.position, Quaternion.identity);
             particleCargo.Enqueue(pastaParticle);

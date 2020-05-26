@@ -98,11 +98,14 @@ MonoBehaviour:
   _processingTime: 2500
   _throughput: 3
   _isWorking: 0
-  queueBegginingOffset: {x: 0, y: 0.25}
-  nextQueuedParticleOffset: {x: 0, y: 0.25}
-  machinequeueBegginingOffset: {x: -0.1, y: 0}
-  machinenextQueuedParticleOffset: {x: 0.05, y: 0}
-  currentryWorkedOnPastaParticle: {fileID: 0}
+  _bufferQueueStartOffset: {x: 0.12, y: 0.21}
+  _bufferQueueNextElementOffset: {x: -0.08, y: 0}
+  _bufferQueueNextRowOffset: {x: 0, y: 0.09}
+  _bufferQueueElementsPerRow: 4
+  processingQueueStartOffset: {x: 0, y: 0}
+  processingQueueNextElementOffset: {x: 0, y: 0}
+  processingQueueNextRowOffset: {x: 0, y: 0}
+  _processingQueueElementsPerRow: 8
 --- !u!1001 &3613345874597244907
 PrefabInstance:
   m_ObjectHideFlags: 0

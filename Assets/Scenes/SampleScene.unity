@@ -585,7 +585,7 @@ PrefabInstance:
     - target: {fileID: 773950333373972548, guid: e749168f847451e499a4ad10c073ce14,
         type: 3}
       propertyPath: m_templateRoutesForPastaParticle.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 773950333373972548, guid: e749168f847451e499a4ad10c073ce14,
         type: 3}
@@ -600,7 +600,7 @@ PrefabInstance:
     - target: {fileID: 773950333373972548, guid: e749168f847451e499a4ad10c073ce14,
         type: 3}
       propertyPath: throughput
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 773950333373972548, guid: e749168f847451e499a4ad10c073ce14,
         type: 3}
@@ -698,16 +698,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
-      propertyPath: _processingTime
-      value: 2500
-      objectReference: {fileID: 0}
-    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
-        type: 3}
-      propertyPath: _throughput
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
-        type: 3}
       propertyPath: machinequeueBegginingOffset.x
       value: -0.05
       objectReference: {fileID: 0}
@@ -791,6 +781,21 @@ PrefabInstance:
       propertyPath: _storehouses.Array.data[0]
       value: 
       objectReference: {fileID: 1681392467}
+    - target: {fileID: 8939234058656398433, guid: 6c07a967db82ca14aa39a73e279b557b,
+        type: 3}
+      propertyPath: _autoParticleQuantity
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939234058656398433, guid: 6c07a967db82ca14aa39a73e279b557b,
+        type: 3}
+      propertyPath: _sendTruckInterval
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 8939234058656398433, guid: 6c07a967db82ca14aa39a73e279b557b,
+        type: 3}
+      propertyPath: _enableAutoScheduler
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8939234058656398435, guid: 6c07a967db82ca14aa39a73e279b557b,
         type: 3}
       propertyPath: m_LocalPosition.x

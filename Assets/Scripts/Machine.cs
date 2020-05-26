@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Timers;
-using TMPro;
 using UnityEngine;
 
 
@@ -13,14 +9,22 @@ public class Machine : MonoBehaviour
     [SerializeField] private float _processingTime = 4000;
     [SerializeField] private int _throughput = 3;
     [SerializeField] private bool _isWorking = false;
-    [SerializeField] private Vector2 queueBegginingOffset = new Vector2(0, 0.25f);
-    [SerializeField] private Vector2 nextQueuedParticleOffset = new Vector2(0, 0.25f);
-    [SerializeField] private Vector2 machinequeueBegginingOffset = new Vector2(-0.1f, 0);
-    [SerializeField] private Vector2 machinenextQueuedParticleOffset = new Vector2(0.05f, 0);
+
+    [Header("Buffor Queue settings")]
+    [SerializeField] private Vector2 _bufferQueueStartOffset = new Vector2(0.12f, 0.21f);
+    [SerializeField] private Vector2 _bufferQueueNextElementOffset = new Vector2(-0.08f, 0);
+    [SerializeField] private Vector2 _bufferQueueNextRowOffset = new Vector2(0, 0.09f);
+    [SerializeField] private int _bufferQueueElementsPerRow = 4;
+
+    [Header("Processing Queue settings")]
+    [SerializeField] private Vector2 processingQueueStartOffset = new Vector2();
+    [SerializeField] private Vector2 processingQueueNextElementOffset = new Vector2();
+    [SerializeField] private Vector2 processingQueueNextRowOffset = new Vector2();
+    [SerializeField] private int _processingQueueElementsPerRow = 8;
 
     private Timer workTimer;
     private Brrr brrr;
-    
+
     public Queue<GameObject> pastaBufferQueue = new Queue<GameObject>();
     public Queue<GameObject> pastaProcessingQueue = new Queue<GameObject>();
 
@@ -49,23 +53,21 @@ public class Machine : MonoBehaviour
             SendToNextMachine();
         }
 
-        if (_isWorking == false && pastaBufferQueue.Count > _throughput-1)
+        if (_isWorking == false && pastaBufferQueue.Count > _throughput - 1)
         {
             _isWorking = true;
-            DoWork();
+            StartProcessing();
             workTimer.Start();
         }
         brrr.GetComponent<SpriteRenderer>().enabled = _isWorking;
     }
 
-    
-
     #region Methods
-    private void DoWork()
+    private void StartProcessing()
     {
-        for(int i = 0; i < _throughput; i++)
+        for (int i = 0; i < _throughput; i++)
         {
-            AddToPastaInMachineQueue(GetFrompastaBufferQueue());
+            AddToPastaProcessingQueue(pastaBufferQueue.Dequeue());
         }
     }
 
@@ -86,53 +88,52 @@ public class Machine : MonoBehaviour
         _isWorking = false;
     }
 
-    private GameObject GetFrompastaBufferQueue()
+    private void ArrangeQueue(Queue<GameObject> enumerable, Vector2 startOffset, Vector2 nextElementOffset, Vector2 nextRowOffset, int elementsPerRow)
     {
-        GameObject temp = pastaBufferQueue.Dequeue();
-        ArrangeQueue();
-        return temp;
-    }
-
-    private void ArrangeQueue()
-    {
-        Vector2 machinePosition = this.transform.position;
-        machinePosition += queueBegginingOffset;
-
-        Vector2 offset = new Vector2();
-
-        foreach(GameObject pastaParticle in pastaBufferQueue)
+        Vector2 baseOffset = startOffset + new Vector2(this.transform.position.x,
+                                                       this.transform.position.y);
+        int rowCount = 0;
+        int elementCount = 0;
+        foreach (GameObject pastaParticle in enumerable)
         {
-            pastaParticle.transform.position = machinePosition + offset;
-            offset += nextQueuedParticleOffset;
+            pastaParticle.transform.position = baseOffset +
+                                               nextRowOffset * rowCount +
+                                               nextElementOffset * elementCount;
+            elementCount++;
+            if(elementCount == elementsPerRow)
+            {
+                elementCount = 0;
+                rowCount++;
+            }
         }
-
     }
 
-    public void AddTopastaBufferQueue(GameObject pastaParticle)
+    public void AddToPastaBufferQueue(GameObject pastaParticle)
     {
         pastaBufferQueue.Enqueue(pastaParticle);
-        ArrangeQueue();
+        ArrangeQueue(pastaBufferQueue,      // pasta buffer queue rearrangement
+                _bufferQueueStartOffset,
+                _bufferQueueNextElementOffset,
+                _bufferQueueNextRowOffset,
+                _bufferQueueElementsPerRow);
     }
 
-    private void ArrangeQueueInMachine()
-    {
-        Vector2 machinePosition = this.transform.position;
-        machinePosition += machinequeueBegginingOffset;
-
-        Vector2 offset = new Vector2();
-
-        foreach (GameObject pastaParticle in pastaProcessingQueue)
-        {
-            pastaParticle.transform.position = machinePosition + offset;
-            offset += machinenextQueuedParticleOffset;
-        }
-
-    }
-
-    public void AddToPastaInMachineQueue(GameObject pastaParticle)
+    public void AddToPastaProcessingQueue(GameObject pastaParticle)
     {
         pastaProcessingQueue.Enqueue(pastaParticle);
-        ArrangeQueueInMachine();
+
+        ArrangeQueue(pastaBufferQueue,      // pasta buffer queue rearrangement
+                _bufferQueueStartOffset,
+                _bufferQueueNextElementOffset,
+                _bufferQueueNextRowOffset,
+                _bufferQueueElementsPerRow);
+
+        ArrangeQueue(pastaProcessingQueue,  // pasta processing queue rearrangement
+                processingQueueStartOffset,
+                processingQueueNextElementOffset,
+                processingQueueNextRowOffset,
+                _processingQueueElementsPerRow);
+
     }
 
     #endregion

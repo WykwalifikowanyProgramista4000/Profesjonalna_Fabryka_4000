@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 80e7b2a4c6b99024093fab1a6ba702d3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f35f0a4c709d0004f92555a22ee7ecbd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,9 +97,6 @@ MonoBehaviour:
   speed: 2
   currentTargetPointer: 1
   flawThreshold: 10
-  isBroken: 0
+  _currentTarget: {fileID: 0}
+  isDamaged: 0
   movementToggle: 1
-  AssemblyLineMachinesRoute:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}

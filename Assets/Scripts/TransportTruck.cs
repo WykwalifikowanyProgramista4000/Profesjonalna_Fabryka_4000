@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class  TransportTruck : MonoBehaviour
+public abstract class TransportTruck : MonoBehaviour
 {
     [SerializeField] protected float _speed = 1;
     [SerializeField] protected Location _currentLocation;
@@ -17,7 +13,7 @@ public abstract class  TransportTruck : MonoBehaviour
     public Queue<GameObject> pastaParticleCargo = new Queue<GameObject>();
 
     protected void DriveToMagazine()
-    { 
+    {
         if (Vector2.Distance(this.transform.position, _designatedStorehouse.transform.position) > 0.01f)
         {
             float step = _speed * Time.deltaTime;
@@ -39,8 +35,8 @@ public abstract class  TransportTruck : MonoBehaviour
         else if (_designatedTransportStation.CompareTag("TransportStation"))
         {
             _currentLocation = Location.atTruckBase;
-            
-            while(pastaParticleCargo.Count > 0)    //TODO narazie rozpieralamy odebrane przez cieżarówkę rzeczy 
+
+            while (pastaParticleCargo.Count > 0)    //TODO narazie rozpieralamy odebrane przez cieżarówkę rzeczy 
             {
                 Destroy(pastaParticleCargo.Dequeue());
             }

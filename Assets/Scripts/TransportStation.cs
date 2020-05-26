@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
@@ -64,7 +63,7 @@ public abstract class TransportStation : MonoBehaviour
 
     protected void AutoScheduler()
     {
-        if(_autoSchedulerTimer == null)
+        if (_autoSchedulerTimer == null)
         {
             _autoSchedulerTimer = new Timer(_sendTruckInterval);
             _autoSchedulerTimer.Enabled = true;

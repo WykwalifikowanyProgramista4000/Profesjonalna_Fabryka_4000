@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PastaParticle : MonoBehaviour
@@ -13,11 +10,11 @@ public class PastaParticle : MonoBehaviour
     [SerializeField] private Queue<GameObject> _route = new Queue<GameObject>();
     [SerializeField] private GameObject _currentTarget;
 
-    private System.Random _random; 
-    
+    private System.Random _random;
+
     public bool isDamaged;
     public bool movementToggle;
-    
+
     void Start()
     {
         _random = new System.Random();
@@ -42,10 +39,10 @@ public class PastaParticle : MonoBehaviour
             float step = speed * Time.deltaTime;
             this.transform.position = Vector2.MoveTowards(this.transform.position, _currentTarget.transform.position, step);
         }
-        else if(_currentTarget.CompareTag("Maszyna"))
+        else if (_currentTarget.CompareTag("Maszyna"))
         {
-            _currentTarget.GetComponent<Machine>().AddTopastaBufferQueue(this.gameObject);
-            
+            _currentTarget.GetComponent<Machine>().AddToPastaBufferQueue(this.gameObject);
+
             if (_route.Count > 0)
             {
                 _currentTarget = _route.Dequeue();
