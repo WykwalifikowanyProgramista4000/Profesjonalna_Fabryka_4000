@@ -8,7 +8,7 @@ public class PastaParticleControler : MonoBehaviour
     [SerializeField] private float speed = 2;
     [SerializeField] private int currentTargetPointer = 1;
     [SerializeField] private int flawThreshold = 10; //ilość uszkodzonych w procentach
-    [SerializeField] private bool isBroken = false;
+    [SerializeField] public bool isDamaged = false;
 
     public bool movementToggle = true;
     public List<GameObject> AssemblyLineMachinesRoute = new List<GameObject>();
@@ -18,13 +18,13 @@ public class PastaParticleControler : MonoBehaviour
     {
         currentTargetPointer = 0;
         int particleBrokenRanodmizer = random.Next(0, 100);
-        if (particleBrokenRanodmizer < flawThreshold) isBroken = true;
+        if (particleBrokenRanodmizer < flawThreshold) isDamaged = true;
     }
 
     void Update()
     {
         if (movementToggle) GoToMachine();
-        if (isBroken) GetComponent<SpriteRenderer>().color = Color.red; //wadliwe particle przedstawione na czerwono
+        if (isDamaged) GetComponent<SpriteRenderer>().color = Color.red; //wadliwe particle przedstawione na czerwono
 
     }
 
@@ -41,12 +41,20 @@ public class PastaParticleControler : MonoBehaviour
         }
         else if(AssemblyLineMachinesRoute[currentTargetPointer].CompareTag("Maszyna"))
         {
-            //TODO dodać Brrr 
-
             AssemblyLineMachinesRoute[currentTargetPointer].GetComponent<Machine>().AddToPastaQueue(this.gameObject);
             currentTargetPointer++;
             movementToggle = false;
         }
+        else if(AssemblyLineMachinesRoute[currentTargetPointer].CompareTag("Storehouse"))
+        {
+            AssemblyLineMachinesRoute[currentTargetPointer].GetComponent<ParticleStorage>().AddParticleToStorage(this.gameObject);
+            currentTargetPointer++;
+        }
+    }
+
+    public void DamageParticle()
+    {
+        isDamaged = true;
     }
 
 }
