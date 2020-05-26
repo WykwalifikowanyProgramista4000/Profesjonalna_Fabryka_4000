@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fd7a5bcf2618ce6419acfff8d0ea59fe, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.2028302, g: 0.23288573, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,9 +96,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _processingTime: 2500
+  _throughput: 3
   _isWorking: 0
   queueBegginingOffset: {x: 0, y: 0.25}
   nextQueuedParticleOffset: {x: 0, y: 0.25}
+  machinequeueBegginingOffset: {x: -0.1, y: 0}
+  machinenextQueuedParticleOffset: {x: 0.05, y: 0}
   currentryWorkedOnPastaParticle: {fileID: 0}
 --- !u!1001 &3613345874597244907
 PrefabInstance:

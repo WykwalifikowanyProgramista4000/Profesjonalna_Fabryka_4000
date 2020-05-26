@@ -19,7 +19,7 @@ public class Machine : MonoBehaviour
     private Brrr brrr;
     
     public Queue<GameObject> pastaQueue = new Queue<GameObject>();
-    public PastaParticleControler currentryWorkedOnPastaParticle;
+    public PastaParticle currentryWorkedOnPastaParticle;
     #endregion
 
     #region Get/Set
@@ -63,7 +63,7 @@ public class Machine : MonoBehaviour
     private void DoWork()
     {
         _isWorking = true;
-        currentryWorkedOnPastaParticle = GetFromPastaQueue().GetComponent<PastaParticleControler>();
+        currentryWorkedOnPastaParticle = GetFromPastaQueue().GetComponent<PastaParticle>();
 
         currentryWorkedOnPastaParticle.transform.position = this.transform.position;
 
