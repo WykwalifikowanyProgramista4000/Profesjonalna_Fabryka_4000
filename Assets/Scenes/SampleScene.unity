@@ -138,6 +138,11 @@ PrefabInstance:
       propertyPath: _processingTime
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: _throughput
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8114655119567397873, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -401,6 +406,21 @@ PrefabInstance:
         type: 3}
       propertyPath: _processingTime
       value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: queueBegginingOffset.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: queueBegginingOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: _throughput
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8114655119567397873, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
@@ -675,6 +695,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Machine 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: _processingTime
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: _throughput
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: machinequeueBegginingOffset.x
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: machinenextQueuedParticleOffset.x
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8114655119567397873, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}

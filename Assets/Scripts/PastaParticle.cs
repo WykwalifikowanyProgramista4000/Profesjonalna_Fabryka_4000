@@ -44,7 +44,7 @@ public class PastaParticle : MonoBehaviour
         }
         else if(_currentTarget.CompareTag("Maszyna"))
         {
-            _currentTarget.GetComponent<Machine>().AddToPastaQueue(this.gameObject);
+            _currentTarget.GetComponent<Machine>().AddTopastaBufferQueue(this.gameObject);
             
             if (_route.Count > 0)
             {
