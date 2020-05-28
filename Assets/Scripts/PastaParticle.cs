@@ -5,7 +5,7 @@ public class PastaParticle : MonoBehaviour
 {
     [SerializeField] private float speed = 2;
     [SerializeField] private int currentTargetPointer = 1;
-    [SerializeField] private int flawThreshold = 10; //ilość uszkodzonych w procentach
+    [SerializeField] private int flawThreshold = 3; //ilość uszkodzonych w procentach
 
     [SerializeField] private Queue<GameObject> _route = new Queue<GameObject>();
     [SerializeField] private GameObject _currentTarget;

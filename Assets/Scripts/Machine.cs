@@ -9,6 +9,8 @@ public class Machine : MonoBehaviour
     [SerializeField] private float _processingTime = 4000;
     [SerializeField] private int _throughput = 3;
     [SerializeField] private bool _isWorking = false;
+    [SerializeField] private bool _isBroken = false;
+    [SerializeField] private float _currentBreakingChance = 0; 
 
     [Header("Buffor Queue settings")]
     [SerializeField] private Vector2 _bufferQueueStartOffset = new Vector2(0.12f, 0.21f);
@@ -29,7 +31,9 @@ public class Machine : MonoBehaviour
     public Queue<GameObject> pastaProcessingQueue = new Queue<GameObject>();
 
     private bool _workFinished;
+    private System.Random _random;
 
+    private Color initialMachineColor;
     #endregion
 
     // Start is called before the first frame update
@@ -42,6 +46,10 @@ public class Machine : MonoBehaviour
         workTimer.Stop();
 
         workTimer.Elapsed += OnProcessingTimeTimerElapsed;
+
+        initialMachineColor = GetComponent<SpriteRenderer>().color;
+
+        _random = new System.Random();
     }
 
     // Update is called once per frame
@@ -60,6 +68,9 @@ public class Machine : MonoBehaviour
             workTimer.Start();
         }
         brrr.GetComponent<SpriteRenderer>().enabled = _isWorking;
+
+        if (_isBroken) GetComponent<SpriteRenderer>().color = Color.red;
+        else GetComponent<SpriteRenderer>().color = initialMachineColor;
     }
 
     #region Methods
@@ -67,7 +78,20 @@ public class Machine : MonoBehaviour
     {
         for (int i = 0; i < _throughput; i++)
         {
-            AddToPastaProcessingQueue(pastaBufferQueue.Dequeue());
+            GameObject dequeuedParticle = pastaBufferQueue.Dequeue();
+
+            CalculateBreakingChances(dequeuedParticle);
+
+            if (_isBroken)
+            {
+                dequeuedParticle.GetComponent<PastaParticle>().DamageParticle();
+                AddToPastaProcessingQueue(dequeuedParticle);
+            }
+            else
+            {
+                AddToPastaProcessingQueue(dequeuedParticle);
+            }
+
         }
     }
 
@@ -134,6 +158,14 @@ public class Machine : MonoBehaviour
                 processingQueueNextRowOffset,
                 _processingQueueElementsPerRow);
 
+    }
+
+    private void CalculateBreakingChances(GameObject dequeuedParticle)
+    {
+        _currentBreakingChance += dequeuedParticle.GetComponent<PastaParticle>().isDamaged ? 0.5f : 0;
+        _currentBreakingChance += pastaBufferQueue.Count / (10 * _throughput);
+        int particleBrokenRanodmizer = _random.Next(51, 100);
+        if (particleBrokenRanodmizer < _currentBreakingChance) _isBroken = true;
     }
 
     #endregion
