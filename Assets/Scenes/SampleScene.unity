@@ -143,6 +143,11 @@ PrefabInstance:
       propertyPath: _throughput
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5422594077799683447, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: current
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8114655119567397873, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -705,6 +710,21 @@ PrefabInstance:
         type: 3}
       propertyPath: machinenextQueuedParticleOffset.x
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349449765655347737, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4349449765655347737, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5422594077799683447, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: current
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8114655119567397873, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
