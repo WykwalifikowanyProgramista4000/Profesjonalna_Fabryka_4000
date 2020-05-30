@@ -322,6 +322,27 @@ PrefabInstance:
       propertyPath: _endStorehouse
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1298671836917562268, guid: e749168f847451e499a4ad10c073ce14,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 646725c0bb8e8da4fab737834b4e28d9,
+        type: 3}
+    - target: {fileID: 1298671836917562268, guid: e749168f847451e499a4ad10c073ce14,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.6999682
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298671836917562268, guid: e749168f847451e499a4ad10c073ce14,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.41189036
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298671836917562268, guid: e749168f847451e499a4ad10c073ce14,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.9811321
+      objectReference: {fileID: 0}
     - target: {fileID: 3167167552308625443, guid: e749168f847451e499a4ad10c073ce14,
         type: 3}
       propertyPath: m_Name
@@ -622,6 +643,27 @@ PrefabInstance:
       propertyPath: m_templateRoutesForPastaParticle.Array.data[0].list.Array.data[3]
       value: 
       objectReference: {fileID: 806840280}
+    - target: {fileID: 1298671836917562268, guid: e749168f847451e499a4ad10c073ce14,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 646725c0bb8e8da4fab737834b4e28d9,
+        type: 3}
+    - target: {fileID: 1298671836917562268, guid: e749168f847451e499a4ad10c073ce14,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298671836917562268, guid: e749168f847451e499a4ad10c073ce14,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298671836917562268, guid: e749168f847451e499a4ad10c073ce14,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3167167552308625443, guid: e749168f847451e499a4ad10c073ce14,
         type: 3}
       propertyPath: m_Name
