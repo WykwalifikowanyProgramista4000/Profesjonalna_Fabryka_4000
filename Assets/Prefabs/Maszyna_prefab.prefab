@@ -297,6 +297,7 @@ MonoBehaviour:
   maximum: 100
   current: 0
   fill: {fileID: 8882114827503151047}
+  _progressbarstartposition: {x: 0, y: 0, z: 0}
 --- !u!1 &8904926530987660540
 GameObject:
   m_ObjectHideFlags: 0

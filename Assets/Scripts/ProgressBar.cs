@@ -9,10 +9,12 @@ public class ProgressBar : MonoBehaviour
     public float maximum;
     public long current;
     public Image fill;
+    [SerializeField] private Vector3 _progressbarstartposition=new Vector3(0.4f, -0.3f, 0.0f);
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        //this.transform.position = _progressbarstartposition;
     }
 
     // Update is called once per frame
