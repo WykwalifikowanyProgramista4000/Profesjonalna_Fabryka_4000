@@ -27,5 +27,14 @@ public class ProgressBar : MonoBehaviour
     {
         float fillAmount = (long)current / (float)maximum;
         fill.fillAmount = fillAmount;
+        fill.color = Color.red;        
+        if (fillAmount > 1.0f/3.0f && fillAmount <=2.0f/3.0f)
+        {
+            fill.color = Color.yellow;
+        }
+        if (fillAmount>2.0f/3.0f)
+        {
+            fill.color = Color.green;
+        }       
     }
 }
