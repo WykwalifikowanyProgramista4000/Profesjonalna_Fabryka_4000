@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Timers;
 using UnityEngine;
 
@@ -25,7 +26,9 @@ public class Machine : MonoBehaviour
     [SerializeField] private int _processingQueueElementsPerRow = 8;
 
     private Timer workTimer;
+    private Stopwatch stopwatch;
     private Brrr brrr;
+    private ProgressBar progress_bar;
 
     public Queue<GameObject> pastaBufferQueue = new Queue<GameObject>();
     public Queue<GameObject> pastaProcessingQueue = new Queue<GameObject>();
@@ -40,10 +43,12 @@ public class Machine : MonoBehaviour
     void Start()
     {
         brrr = GetComponentInChildren<Brrr>();
-
+        progress_bar = GetComponentInChildren<ProgressBar>();
         workTimer = new Timer(_processingTime);
         workTimer.Enabled = true;
         workTimer.Stop();
+        stopwatch = new Stopwatch();
+        stopwatch.Reset();
 
         workTimer.Elapsed += OnProcessingTimeTimerElapsed;
 
@@ -66,8 +71,11 @@ public class Machine : MonoBehaviour
             _isWorking = true;
             StartProcessing();
             workTimer.Start();
+            stopwatch.Start();
         }
         brrr.GetComponent<SpriteRenderer>().enabled = _isWorking;
+        progress_bar.maximum = _processingTime;
+        progress_bar.current = stopwatch.ElapsedMilliseconds;
 
         if (_isBroken) GetComponent<SpriteRenderer>().color = Color.red;
         else GetComponent<SpriteRenderer>().color = initialMachineColor;
@@ -108,6 +116,7 @@ public class Machine : MonoBehaviour
     private void OnProcessingTimeTimerElapsed(object source, ElapsedEventArgs e)
     {
         workTimer.Stop();
+        stopwatch.Reset();
         _workFinished = true;
         _isWorking = false;
     }
