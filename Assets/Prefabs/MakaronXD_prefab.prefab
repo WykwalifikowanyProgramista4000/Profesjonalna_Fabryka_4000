@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60faa93eb411f04429819200e6763e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 0.2
   currentTargetPointer: 1
   flawThreshold: 10
   _currentTarget: {fileID: 0}

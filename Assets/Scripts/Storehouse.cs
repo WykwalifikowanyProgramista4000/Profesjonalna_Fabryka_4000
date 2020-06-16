@@ -81,6 +81,7 @@ public class Storehouse : MonoBehaviour
             {
                 GameObject releasedParticle = storageQueue.Dequeue();
 
+                releasedParticle.transform.position = (Vector2)this.transform.position + new Vector2(0.12f + 0.02f*i, 0);
                 releasedParticle.GetComponent<PastaParticle>().SetRoute(_templateRoutesForPastaParticle[routeId]);
                 releasedParticle.GetComponent<PastaParticle>().movementToggle = true;
             }
@@ -88,7 +89,7 @@ public class Storehouse : MonoBehaviour
                     _storageQueueStartOffset,
                     _storageQueueNextElementOffset,
                     _storageQueueNextRowOffset,
-                    4);
+                    _storageQueueElementsPerRow);
         }
         else
         {
