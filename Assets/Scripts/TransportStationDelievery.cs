@@ -7,18 +7,22 @@ class TransportStationDelievery : TransportStation
 
     protected override void ScheduleNewTruck(int magazineID, int particleQuantity)
     {
-        GameObject newTruck = Instantiate(_templateTruck, this.transform.position, Quaternion.identity);
-
-        GameObject pastaParticle;
-        Queue<GameObject> particleCargo = new Queue<GameObject>();
-
-        for (int i = 0; i < particleQuantity; i++)
+        if (!_truckScheduled)
         {
-            pastaParticle = Instantiate(_templatePastaParticle, this.transform.position, Quaternion.identity);
-            particleCargo.Enqueue(pastaParticle);
-        }
+            GameObject newTruck = Instantiate(_templateTruck, this.transform.position, Quaternion.identity);
 
-        newTruck.GetComponent<TransportTruckDelievery>().ScheduleDelievery(this.gameObject, _storehouses[magazineID], particleCargo);
+            GameObject pastaParticle;
+            Queue<GameObject> particleCargo = new Queue<GameObject>();
+
+            for (int i = 0; i < particleQuantity; i++)
+            {
+                pastaParticle = Instantiate(_templatePastaParticle, this.transform.position, Quaternion.identity);
+                particleCargo.Enqueue(pastaParticle);
+            }
+
+            newTruck.GetComponent<TransportTruckDelievery>().ScheduleDelievery(this.gameObject, _storehouses[magazineID], particleCargo);
+            _truckScheduled = true;
+        }
     }
 }
 

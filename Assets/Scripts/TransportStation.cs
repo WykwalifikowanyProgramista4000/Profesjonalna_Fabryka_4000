@@ -11,6 +11,7 @@ public abstract class TransportStation : MonoBehaviour
     private Timer _autoSchedulerTimer;
 
     [SerializeField] protected GameObject _templateTruck;
+    [SerializeField] protected bool _truckScheduled = false;
     [SerializeField] protected List<GameObject> _storehouses = new List<GameObject>();
 
 
@@ -81,4 +82,8 @@ public abstract class TransportStation : MonoBehaviour
         _autoSchedulerTimer.Start();
     }
 
+    public void TruckReturned()
+    {
+        _truckScheduled = false;
+    }
 }

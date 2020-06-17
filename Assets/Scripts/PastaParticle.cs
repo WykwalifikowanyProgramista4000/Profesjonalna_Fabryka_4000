@@ -53,8 +53,11 @@ public class PastaParticle : MonoBehaviour
         else if (_currentTarget.CompareTag("Storehouse"))
         {
             _currentTarget.GetComponent<Storehouse>().AddParticleToStorehouse(this.gameObject);
-
             movementToggle = false;
+        }
+        else if (_currentTarget.CompareTag("Spliter"))
+        {
+            _currentTarget.GetComponent<Spliter>().SplitPastaParticleToRoute(this.gameObject);
         }
     }
 

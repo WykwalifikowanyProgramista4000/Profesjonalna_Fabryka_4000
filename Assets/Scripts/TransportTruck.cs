@@ -41,6 +41,7 @@ public abstract class TransportTruck : MonoBehaviour
                 Destroy(pastaParticleCargo.Dequeue());
             }
 
+            _designatedTransportStation.GetComponent<TransportStation>().TruckReturned();
             Destroy(this.gameObject);
         }
     }
