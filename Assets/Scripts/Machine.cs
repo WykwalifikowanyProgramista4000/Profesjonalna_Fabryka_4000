@@ -7,7 +7,7 @@ using UnityEngine;
 public class Machine : MonoBehaviour
 {
     #region Properties
-    [SerializeField] private float _processingTime = 4000;
+    [SerializeField] private float _processingTime;
     [SerializeField] private int _throughput = 3;
     [SerializeField] private bool _isWorking = false;
     [SerializeField] private bool _isBroken = false;
@@ -37,6 +37,17 @@ public class Machine : MonoBehaviour
     private System.Random _random;
 
     private Color initialMachineColor;
+    
+    public float ProcessingTime
+    {
+        get { return _processingTime / Config.SimulationSpeed; }
+    }
+
+    public float CurrentBreakingChance
+    {
+        get { return _currentBreakingChance; }
+    }
+
     #endregion
 
     // Start is called before the first frame update
@@ -44,7 +55,7 @@ public class Machine : MonoBehaviour
     {
         brrr = GetComponentInChildren<Brrr>();
         progress_bar = GetComponentInChildren<ProgressBar>();
-        workTimer = new Timer(_processingTime);
+        workTimer = new Timer(ProcessingTime);
         workTimer.Enabled = true;
         workTimer.Stop();
         stopwatch = new Stopwatch();
@@ -70,11 +81,12 @@ public class Machine : MonoBehaviour
         {
             _isWorking = true;
             StartProcessing();
+            workTimer.Interval = ProcessingTime;
             workTimer.Start();
             stopwatch.Start();
         }
         brrr.GetComponent<SpriteRenderer>().enabled = _isWorking;
-        progress_bar.maximum = _processingTime;
+        progress_bar.maximum = ProcessingTime;
         progress_bar.current = stopwatch.ElapsedMilliseconds;
 
         if (_isBroken) GetComponent<SpriteRenderer>().color = Color.red;
@@ -171,8 +183,8 @@ public class Machine : MonoBehaviour
 
     private void CalculateBreakingChances(GameObject dequeuedParticle)
     {
-        _currentBreakingChance += dequeuedParticle.GetComponent<PastaParticle>().isDamaged ? 0.5f : 0;
-        _currentBreakingChance += pastaBufferQueue.Count / (10 * _throughput);
+        _currentBreakingChance += dequeuedParticle.GetComponent<PastaParticle>().isDamaged ? 0.005f : 0;
+        _currentBreakingChance += pastaBufferQueue.Count / (1000 * _throughput);
         int particleBrokenRanodmizer = _random.Next(51, 100);
         if (particleBrokenRanodmizer < _currentBreakingChance) _isBroken = true;
     }

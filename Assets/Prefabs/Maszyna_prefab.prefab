@@ -198,13 +198,15 @@ MonoBehaviour:
   _processingTime: 2500
   _throughput: 3
   _isWorking: 0
+  _isBroken: 0
+  _currentBreakingChance: 0
   _bufferQueueStartOffset: {x: 0.12, y: 0.21}
   _bufferQueueNextElementOffset: {x: -0.08, y: 0}
   _bufferQueueNextRowOffset: {x: 0, y: 0.09}
   _bufferQueueElementsPerRow: 4
-  processingQueueStartOffset: {x: 0, y: 0}
-  processingQueueNextElementOffset: {x: 0, y: 0}
-  processingQueueNextRowOffset: {x: 0, y: 0}
+  processingQueueStartOffset: {x: 0.12, y: -0.04}
+  processingQueueNextElementOffset: {x: -0.08, y: 0}
+  processingQueueNextRowOffset: {x: 0, y: 0.09}
   _processingQueueElementsPerRow: 8
 --- !u!1 &8667098987054443514
 GameObject:

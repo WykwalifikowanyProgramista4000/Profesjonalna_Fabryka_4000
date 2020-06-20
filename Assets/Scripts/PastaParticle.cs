@@ -5,7 +5,7 @@ public class PastaParticle : MonoBehaviour
 {
     [SerializeField] private float speed = 2;
     [SerializeField] private int currentTargetPointer = 1;
-    [SerializeField] private int flawThreshold = 3; //ilość uszkodzonych w procentach
+    [SerializeField] private int flawThreshold = 1; //ilość uszkodzonych w promilach
 
     [SerializeField] private Queue<GameObject> _route = new Queue<GameObject>();
     [SerializeField] private GameObject _currentTarget;
@@ -21,8 +21,9 @@ public class PastaParticle : MonoBehaviour
         isDamaged = false;
         movementToggle = false;
 
-        int particleBrokenRanodmizer = _random.Next(0, 100);
-        if (particleBrokenRanodmizer < flawThreshold) isDamaged = true;
+        int particleBrokenRanodmizer = _random.Next(0, 1000);
+        if (particleBrokenRanodmizer < flawThreshold) DamageParticle();
+        SimulationData.ParticlesCount++;
     }
 
     void Update()
@@ -69,7 +70,11 @@ public class PastaParticle : MonoBehaviour
 
     public void DamageParticle()
     {
-        isDamaged = true;
+        if(isDamaged == false)
+        {
+            isDamaged = true;
+            SimulationData.BrokenParticlesCount++;
+        }
     }
 
 }
