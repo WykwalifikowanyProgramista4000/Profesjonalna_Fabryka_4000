@@ -26,6 +26,11 @@ public abstract class TransportStation : MonoBehaviour
     public int _autoMagazineID;
     public int _autoParticleQuantity;
 
+    protected float SendTruckInterval
+    {
+        get { return _sendTruckInterval / Config.SimulationSpeed; }
+    }
+
     void Start()
     {
         _enableAutoScheduler = false;
@@ -66,7 +71,7 @@ public abstract class TransportStation : MonoBehaviour
     {
         if (_autoSchedulerTimer == null)
         {
-            _autoSchedulerTimer = new Timer(_sendTruckInterval);
+            _autoSchedulerTimer = new Timer(SendTruckInterval);
             _autoSchedulerTimer.Enabled = true;
             _autoSchedulerTimer.Start();
 
@@ -79,6 +84,7 @@ public abstract class TransportStation : MonoBehaviour
     {
         _autoSchedulerTimer.Stop();
         _sendTruckAuto = true;
+        _autoSchedulerTimer.Interval = SendTruckInterval;
         _autoSchedulerTimer.Start();
     }
 
