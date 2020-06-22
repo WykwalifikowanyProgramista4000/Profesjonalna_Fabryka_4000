@@ -28,7 +28,7 @@ public abstract class TransportStation : MonoBehaviour
 
     protected float SendTruckInterval
     {
-        get { return _sendTruckInterval / Config.SimulationSpeed; }
+        get { return _sendTruckInterval / Settings.SimulationSpeed; }
     }
 
     void Start()

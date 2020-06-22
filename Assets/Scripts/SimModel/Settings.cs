@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Config
+public static class Settings
 {
     [SerializeField] public static float SimulationSpeed = 1f;
 }

@@ -23,7 +23,7 @@ public class PastaParticle : MonoBehaviour
 
         int particleBrokenRanodmizer = _random.Next(0, 1000);
         if (particleBrokenRanodmizer < flawThreshold) DamageParticle();
-        SimulationData.ParticlesCount++;
+        Data.ParticlesCount++;
     }
 
     void Update()
@@ -73,7 +73,7 @@ public class PastaParticle : MonoBehaviour
         if(isDamaged == false)
         {
             isDamaged = true;
-            SimulationData.BrokenParticlesCount++;
+            Data.BrokenParticlesCount++;
         }
     }
 

@@ -4,7 +4,7 @@ using System.Timers;
 using UnityEngine;
 
 
-public static class SimulationData
+public static class Data
 {
     public static float ParticlesCount = 0;
     public static float BrokenParticlesCount = 0;
