@@ -77,4 +77,8 @@ public class PastaParticle : MonoBehaviour
         }
     }
 
+    public void DestroyParticle()
+    {
+        Destroy(this);
+    }
 }

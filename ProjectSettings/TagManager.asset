@@ -9,6 +9,8 @@ TagManager:
   - Storehouse
   - TransportStation
   - Spliter
+  - Pasta
+  - Machine Panel
   layers:
   - Default
   - TransparentFX

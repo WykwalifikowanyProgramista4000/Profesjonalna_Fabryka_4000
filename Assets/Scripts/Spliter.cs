@@ -45,5 +45,10 @@ public class Spliter : MonoBehaviour
             }
         }
     }
+
+    public void Restart()
+    {
+        Start();
+    }
 }
 

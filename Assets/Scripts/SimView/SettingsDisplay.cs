@@ -37,12 +37,13 @@ public class SettingsDisplay : MonoBehaviour
 
     public void OnClick_Reset()
     {
-
+        simulation.GetComponent<Simulation>().ResetNodes();
+        
     }
 
     public void OnClick_Pause()
     {
-
+        inputField_SimSpeed = 0;
     }
 
     public void OnClick_Start()

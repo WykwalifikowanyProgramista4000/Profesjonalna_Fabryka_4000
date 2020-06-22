@@ -41,6 +41,13 @@ public class Machine : MonoBehaviour
     public float ProcessingTime
     {
         get { return _processingTime / Settings.SimulationSpeed; }
+        set { _processingTime = value; }
+    }
+
+    public int Throughput
+    {
+        get { return _throughput; }
+        set { _throughput = value; }
     }
 
     public float CurrentBreakingChance
@@ -204,6 +211,7 @@ public class Machine : MonoBehaviour
     public void Restart()
     {
         Start();
+        UnityEngine.Debug.Log(this.gameObject.name);
     }
 
     #endregion
