@@ -2877,6 +2877,27 @@ PrefabInstance:
       propertyPath: m_templateRoutesForPastaParticle.Array.data[2].list.Array.data[1]
       value: 
       objectReference: {fileID: 500176913}
+    - target: {fileID: 929420385055582740, guid: 44d0fa3562269b543a78b32bd381dcb3,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 25b9c8e55a1dfa24daab78f61b7db42c,
+        type: 3}
+    - target: {fileID: 929420385055582740, guid: 44d0fa3562269b543a78b32bd381dcb3,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.7607844
+      objectReference: {fileID: 0}
+    - target: {fileID: 929420385055582740, guid: 44d0fa3562269b543a78b32bd381dcb3,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.7607844
+      objectReference: {fileID: 0}
+    - target: {fileID: 929420385055582740, guid: 44d0fa3562269b543a78b32bd381dcb3,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.7607844
+      objectReference: {fileID: 0}
     - target: {fileID: 4672415464934334140, guid: 44d0fa3562269b543a78b32bd381dcb3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2932,6 +2953,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4672415464934334140, guid: 44d0fa3562269b543a78b32bd381dcb3,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8808221972231708818, guid: 44d0fa3562269b543a78b32bd381dcb3,
         type: 3}
       propertyPath: m_Name
@@ -2946,11 +2972,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3219357472720097448, guid: 145f415917ecdcd459fe5584793d9aaf,
-        type: 3}
-      propertyPath: targetsList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3219357472720097448, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
       propertyPath: targetsList.Array.data[0]

@@ -174,7 +174,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fd7a5bcf2618ce6419acfff8d0ea59fe, type: 3}
-  m_Color: {r: 0.2028302, g: 0.23288573, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -253,6 +253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6ba6099232c304782be50bfcab95c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetsList:
+  - {fileID: 0}
   arrowObject: {fileID: 5211292222790050096, guid: 9a822e38eb3fdd04397e3553991e5e20,
     type: 3}
 --- !u!1 &8667098987054443514
