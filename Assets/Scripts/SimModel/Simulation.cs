@@ -9,6 +9,7 @@ public class Simulation : MonoBehaviour
 {
     private Loger _loger = new Loger();
     private int _logerCounter;
+    public bool logON;
 
     public TransportStationDelieveryScrollPanel delieverySettings;
     public TransportStationReceptionScrollPanel receptionSettings;
@@ -24,6 +25,7 @@ public class Simulation : MonoBehaviour
     void Start()
     {
         _logerCounter = 0;
+        logON = false;
         machines = new List<Machine>();
         spliters = new List<Spliter>();
         storehouses = new List<Storehouse>();
@@ -43,13 +45,15 @@ public class Simulation : MonoBehaviour
 
 
         _loger.InitiateMachineDataLog(machines);
+        _loger.InitiateStorehouseDataLog(storehouses);
     }
 
     void Update()
     {
-        if (_logerCounter % 15 == 0)
+        if (_logerCounter % 15 == 0 && logON == true)
         {
             _loger.LogMachinesData(machines);
+            _loger.LogStorehouseData(storehouses);
             _logerCounter = 0;
         }
         _logerCounter++;

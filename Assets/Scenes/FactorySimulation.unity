@@ -2962,6 +2962,16 @@ PrefabInstance:
       propertyPath: _processingTime
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: _throughput
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: _processingQueueElementsPerRow
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4349449765655347737, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -6001,7 +6011,7 @@ PrefabInstance:
     - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
       propertyPath: _processingTime
-      value: 1000
+      value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 4349449765655347737, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
@@ -6629,6 +6639,16 @@ PrefabInstance:
         type: 3}
       propertyPath: _processingTime
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: _throughput
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: _processingQueueElementsPerRow
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4349449765655347737, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
@@ -9980,7 +10000,7 @@ PrefabInstance:
     - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
       propertyPath: _processingTime
-      value: 1000
+      value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 4349449765655347737, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
@@ -11876,7 +11896,17 @@ PrefabInstance:
     - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
       propertyPath: _processingTime
-      value: 1000
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: _throughput
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: _processingQueueElementsPerRow
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4349449765655347737, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
@@ -12608,6 +12638,16 @@ PrefabInstance:
       propertyPath: _processingTime
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: _throughput
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
+        type: 3}
+      propertyPath: _processingQueueElementsPerRow
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4349449765655347737, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -13322,7 +13362,7 @@ PrefabInstance:
     - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
       propertyPath: _processingTime
-      value: 1000
+      value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 4349449765655347737, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
@@ -13596,7 +13636,7 @@ PrefabInstance:
     - target: {fileID: 4108035953836294421, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
       propertyPath: _processingTime
-      value: 1000
+      value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 4349449765655347737, guid: 145f415917ecdcd459fe5584793d9aaf,
         type: 3}
@@ -16469,6 +16509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac609a41b95f804fbe5b78f5e56303c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  logON: 0
   delieverySettings: {fileID: 2071015187}
   receptionSettings: {fileID: 1802850765}
   machineSettings: {fileID: 1140399139}

@@ -22,8 +22,8 @@ public class Storehouse : MonoBehaviour
 
     [SerializeField] private int maxStorageCapacity = 100;
     [SerializeField] private int throughput = 10;
-    [SerializeField] private int fineParticlesCounter = 0;
-    [SerializeField] private int damagedParticlesCounter = 0;
+    [SerializeField] public int fineParticlesCounter = 0;
+    [SerializeField] public int damagedParticlesCounter = 0;
     [SerializeField] private bool releaseParticle = false;
     [SerializeField] private bool _endStorehouse;
 
@@ -40,7 +40,7 @@ public class Storehouse : MonoBehaviour
     [SerializeField] private List<AssemblyLineElementList> m_templateRoutesForPastaParticle = new List<AssemblyLineElementList>();
     private List<Queue<GameObject>> _templateRoutesForPastaParticle = new List<Queue<GameObject>>();
 
-    private Queue<GameObject> storageQueue = new Queue<GameObject>();
+    public Queue<GameObject> storageQueue = new Queue<GameObject>();
     private Vector2 storagePlacingOffset = new Vector2();
 
     public int MaxStorageCapacity
@@ -138,7 +138,7 @@ public class Storehouse : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Magazyn: Panie, nie mam tyle (" + particleQuantity.ToString() + "), moge dać maksymalnie: " + storageQueue.Count.ToString());
+            //Debug.LogWarning("Magazyn: Panie, nie mam tyle (" + particleQuantity.ToString() + "), moge dać maksymalnie: " + storageQueue.Count.ToString());
         }
     }
 

@@ -40,7 +40,8 @@ public class SettingsDisplayPanel : MonoBehaviour
     public void OnClick_Reset()
     {
         simulation.GetComponent<Simulation>().ResetNodes();
-        
+        simulation.GetComponent<Simulation>().logON = false;
+
     }
 
     public void OnClick_Start()
@@ -54,5 +55,7 @@ public class SettingsDisplayPanel : MonoBehaviour
         {
             transportStationPanel.SimulationRunning = true;
         }
+
+        simulation.GetComponent<Simulation>().logON = true;
     }
 }
