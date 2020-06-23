@@ -5338,6 +5338,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac609a41b95f804fbe5b78f5e56303c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delieverySettings: {fileID: 2071015187}
+  receptionSettings: {fileID: 1802850765}
   machines:
   - {fileID: 6394804164816808833}
   - {fileID: 281621527}

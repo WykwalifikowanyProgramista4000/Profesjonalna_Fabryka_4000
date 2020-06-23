@@ -2,40 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System.Linq;
 
 public class SettingsDisplayPanel : MonoBehaviour
 {
     public float inputField_SimSpeed;
-    private bool _startFlag;
 
     [SerializeField] private GameObject simulation;
 
     // Start is called before the first frame update
     void Start()
     {
-        _startFlag = false;
         inputField_SimSpeed = 1f;
         Settings.SimulationSpeed = inputField_SimSpeed;
 
         Time.timeScale = Settings.SimulationSpeed;
         Time.fixedDeltaTime = Settings.SimulationSpeed;
-
-        // setting to default value with normal time
-        inputField_SimSpeed = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_startFlag)
-        {
-            Settings.SimulationSpeed = inputField_SimSpeed;
+        Settings.SimulationSpeed = inputField_SimSpeed;
 
-            if (Time.timeScale != Settings.SimulationSpeed)
-            {
-                Time.timeScale = Settings.SimulationSpeed;
-                Time.fixedDeltaTime = Settings.SimulationSpeed;
-            }
+        if (Time.timeScale != Settings.SimulationSpeed)
+        {
+            Time.timeScale = Settings.SimulationSpeed;
+            Time.fixedDeltaTime = Settings.SimulationSpeed;
         }
     }
 
@@ -52,6 +45,14 @@ public class SettingsDisplayPanel : MonoBehaviour
 
     public void OnClick_Start()
     {
-        _startFlag = true;
+        foreach (var transportStationPanel in simulation.GetComponent<Simulation>().delieverySettings.transportStationPanels)
+        {
+            transportStationPanel.SimulationRunning = true;
+        }
+
+        foreach (var transportStationPanel in simulation.GetComponent<Simulation>().receptionSettings.transportStationPanels)
+        {
+            transportStationPanel.SimulationRunning = true;
+        }
     }
 }

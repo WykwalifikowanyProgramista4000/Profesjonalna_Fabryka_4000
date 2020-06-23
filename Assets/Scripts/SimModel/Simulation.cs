@@ -7,7 +7,7 @@ using UnityEngine;
 public class Simulation : MonoBehaviour
 {
     public TransportStationDelieveryScrollPanel delieverySettings;
-    public TransportStationDelieveryScrollPanel receptionSettings;
+    public TransportStationReceptionScrollPanel receptionSettings;
 
     public List<Machine> machines;
     public List<Spliter> spliters;
@@ -51,6 +51,18 @@ public class Simulation : MonoBehaviour
         foreach (var truck in trucks)
         {
             Destroy(truck);
+        }
+
+        // Delievery Settings Reset
+        foreach (var transportStationPanel in delieverySettings.transportStationPanels)
+        {
+            transportStationPanel.Restart();
+        }
+
+        // Reception Settings Reset
+        foreach (var transportStationPanel in receptionSettings.transportStationPanels)
+        {
+            transportStationPanel.Restart();
         }
     }
 }
