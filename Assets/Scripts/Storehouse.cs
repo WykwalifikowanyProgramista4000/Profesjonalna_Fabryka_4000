@@ -33,6 +33,9 @@ public class Storehouse : MonoBehaviour
     [SerializeField] private Vector2 _storageQueueNextRowOffset = new Vector2(0, 0.09f);
     [SerializeField] private int _storageQueueElementsPerRow = 4;
 
+    [Header("Targets")]
+    [SerializeField] private List<Transform> targets = new List<Transform>();
+
     [Header("   ")]
     [SerializeField] private List<AssemblyLineElementList> m_templateRoutesForPastaParticle = new List<AssemblyLineElementList>();
     private List<Queue<GameObject>> _templateRoutesForPastaParticle = new List<Queue<GameObject>>();
@@ -54,6 +57,7 @@ public class Storehouse : MonoBehaviour
 
     void Start()
     {
+
         CreateQueues();
     }
 

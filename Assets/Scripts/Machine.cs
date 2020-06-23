@@ -25,6 +25,9 @@ public class Machine : MonoBehaviour
     [SerializeField] private Vector2 processingQueueNextRowOffset = new Vector2();
     [SerializeField] private int _processingQueueElementsPerRow = 8;
 
+    [Header("Targets")]
+    [SerializeField] private List<Transform> targets = new List<Transform>();
+
     private Timer workTimer;
     private Stopwatch stopwatch;
     private Brrr brrr;
@@ -37,7 +40,7 @@ public class Machine : MonoBehaviour
     private System.Random _random;
 
     private Color initialMachineColor;
-    
+
     public float ProcessingTime
     {
         get { return _processingTime / Settings.SimulationSpeed; }

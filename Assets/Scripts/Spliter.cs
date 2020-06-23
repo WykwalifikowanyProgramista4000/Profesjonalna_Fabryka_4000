@@ -19,6 +19,9 @@ public class Spliter : MonoBehaviour
     private int[] _transferedParticles;
     private int _totalTransferedParticles;
 
+    [Header("Targets")]
+    [SerializeField] private List<Transform> targets = new List<Transform>();
+
     private System.Random random = new System.Random();
 
     private void Start()
