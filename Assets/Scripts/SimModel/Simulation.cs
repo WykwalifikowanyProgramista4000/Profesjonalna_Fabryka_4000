@@ -6,10 +6,14 @@ using UnityEngine;
 
 public class Simulation : MonoBehaviour
 {
+    public TransportStationDelieveryScrollPanel delieverySettings;
+    public TransportStationDelieveryScrollPanel receptionSettings;
+
     public List<Machine> machines;
     public List<Spliter> spliters;
     public List<Storehouse> storehouses;
-    public List<TransportStation> transportStations;
+    public List<TransportStation> delieveryTransportStations;
+    public List<TransportStation> receptionTransportStations;
 
     public void ResetNodes()
     {
@@ -33,9 +37,20 @@ public class Simulation : MonoBehaviour
         }
 
         // Transport Stations reset
-        foreach (var transportStation in transportStations)
+        foreach (var transportStation in delieveryTransportStations)
         {
             transportStation.Restart();
+        }
+        foreach (var transportStation in receptionTransportStations)
+        {
+            transportStation.Restart();
+        }
+
+        // Trucks reset
+        GameObject[] trucks = GameObject.FindGameObjectsWithTag("Truck");
+        foreach (var truck in trucks)
+        {
+            Destroy(truck);
         }
     }
 }

@@ -25,7 +25,7 @@ public class MachinePanel : MonoBehaviour
 
     private void Update()
     {
-        _breakeChance.text = System.Math.Round(Machine.CurrentBreakingChance).ToString();
+        _breakeChance.text = System.Math.Round(Machine.CurrentBreakingChance, 3).ToString();
     }
 
     public void OnEndEdit_ProcessingTime(string value)

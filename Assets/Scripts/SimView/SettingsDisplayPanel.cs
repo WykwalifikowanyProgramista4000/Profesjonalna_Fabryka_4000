@@ -3,30 +3,39 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class SettingsDisplay : MonoBehaviour
+public class SettingsDisplayPanel : MonoBehaviour
 {
-    public float inputField_SimSpeed = 1f;
+    public float inputField_SimSpeed;
+    private bool _startFlag;
 
     [SerializeField] private GameObject simulation;
 
     // Start is called before the first frame update
     void Start()
     {
+        _startFlag = false;
+        inputField_SimSpeed = 1f;
         Settings.SimulationSpeed = inputField_SimSpeed;
 
         Time.timeScale = Settings.SimulationSpeed;
         Time.fixedDeltaTime = Settings.SimulationSpeed;
+
+        // setting to default value with normal time
+        inputField_SimSpeed = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Settings.SimulationSpeed = inputField_SimSpeed;
-
-        if (Time.timeScale != Settings.SimulationSpeed)
+        if (_startFlag)
         {
-            Time.timeScale = Settings.SimulationSpeed;
-            Time.fixedDeltaTime = Settings.SimulationSpeed;
+            Settings.SimulationSpeed = inputField_SimSpeed;
+
+            if (Time.timeScale != Settings.SimulationSpeed)
+            {
+                Time.timeScale = Settings.SimulationSpeed;
+                Time.fixedDeltaTime = Settings.SimulationSpeed;
+            }
         }
     }
 
@@ -41,13 +50,8 @@ public class SettingsDisplay : MonoBehaviour
         
     }
 
-    public void OnClick_Pause()
-    {
-        inputField_SimSpeed = 0;
-    }
-
     public void OnClick_Start()
     {
-
+        _startFlag = true;
     }
 }

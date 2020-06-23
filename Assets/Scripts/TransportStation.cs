@@ -32,6 +32,12 @@ public abstract class TransportStation : MonoBehaviour
         set { _sendTruckInterval = value; }
     }
 
+    public bool EnableAutoScheduler
+    {
+        get { return _enableAutoScheduler; }
+        set { _enableAutoScheduler = value; }
+    }
+
     void Start()
     {
         _sendTruckAuto = false;
