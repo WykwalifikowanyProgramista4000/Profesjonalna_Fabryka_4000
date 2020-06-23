@@ -40,6 +40,18 @@ public class Storehouse : MonoBehaviour
     private Queue<GameObject> storageQueue = new Queue<GameObject>();
     private Vector2 storagePlacingOffset = new Vector2();
 
+    public int MaxStorageCapacity
+    {
+        get { return maxStorageCapacity; }
+        set { maxStorageCapacity = value; }
+    }
+
+    public int Throughput
+    {
+        get { return throughput; }
+        set { throughput = value; }
+    }
+
     void Start()
     {
         CreateQueues();
