@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Simulation : MonoBehaviour
 {
+    private Loger _loger = new Loger();
+
     public TransportStationDelieveryScrollPanel delieverySettings;
     public TransportStationReceptionScrollPanel receptionSettings;
 
@@ -14,6 +16,18 @@ public class Simulation : MonoBehaviour
     public List<Storehouse> storehouses;
     public List<TransportStation> delieveryTransportStations;
     public List<TransportStation> receptionTransportStations;
+
+    void Start()
+    {
+        _loger.InitiateMachineDataLog(machines);
+    }
+
+    void Update()
+    {
+
+        _loger.LogMachinesData(machines);
+
+    }
 
     public void ResetNodes()
     {
@@ -65,5 +79,7 @@ public class Simulation : MonoBehaviour
             transportStationPanel.Restart();
         }
     }
+
+
 }
 
