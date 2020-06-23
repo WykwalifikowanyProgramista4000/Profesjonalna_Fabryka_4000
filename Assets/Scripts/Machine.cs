@@ -8,7 +8,7 @@ public class Machine : MonoBehaviour
 {
     #region Properties
     [SerializeField] private float _processingTime;
-    [SerializeField] private int _throughput = 3;
+    [SerializeField] private int _throughput;
     [SerializeField] private bool _isWorking = false;
     [SerializeField] private bool _isBroken = false;
     [SerializeField] private float _currentBreakingChance = 0; 
@@ -30,8 +30,8 @@ public class Machine : MonoBehaviour
     private Brrr brrr;
     private ProgressBar progress_bar;
 
-    public Queue<GameObject> pastaBufferQueue = new Queue<GameObject>();
-    public Queue<GameObject> pastaProcessingQueue = new Queue<GameObject>();
+    public Queue<GameObject> pastaBufferQueue;
+    public Queue<GameObject> pastaProcessingQueue;
 
     private bool _workFinished;
     private System.Random _random;
@@ -40,7 +40,14 @@ public class Machine : MonoBehaviour
     
     public float ProcessingTime
     {
-        get { return _processingTime / Config.SimulationSpeed; }
+        get { return _processingTime / Settings.SimulationSpeed; }
+        set { _processingTime = value; }
+    }
+
+    public int Throughput
+    {
+        get { return _throughput; }
+        set { _throughput = value; }
     }
 
     public float CurrentBreakingChance
@@ -53,18 +60,30 @@ public class Machine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // queues
+        pastaBufferQueue = new Queue<GameObject>();
+        pastaProcessingQueue = new Queue<GameObject>();
+
+        // default flags and parameters
+        _isWorking = false;
+        _isBroken = false;
+        _currentBreakingChance = 0;
+
+        // brr
         brrr = GetComponentInChildren<Brrr>();
+
+        // Timer for progress bar and working queue
         progress_bar = GetComponentInChildren<ProgressBar>();
         workTimer = new Timer(ProcessingTime);
         workTimer.Enabled = true;
         workTimer.Stop();
         stopwatch = new Stopwatch();
         stopwatch.Reset();
-
         workTimer.Elapsed += OnProcessingTimeTimerElapsed;
 
         initialMachineColor = GetComponent<SpriteRenderer>().color;
 
+        // rand generator
         _random = new System.Random();
     }
 
@@ -187,6 +206,12 @@ public class Machine : MonoBehaviour
         _currentBreakingChance += pastaBufferQueue.Count / (1000 * _throughput);
         int particleBrokenRanodmizer = _random.Next(51, 100);
         if (particleBrokenRanodmizer < _currentBreakingChance) _isBroken = true;
+    }
+
+    public void Restart()
+    {
+        Start();
+        UnityEngine.Debug.Log(this.gameObject.name);
     }
 
     #endregion

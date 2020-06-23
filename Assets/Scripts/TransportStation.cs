@@ -23,16 +23,26 @@ public abstract class TransportStation : MonoBehaviour
     [Header("Auto scheduling")]
     [SerializeField] protected bool _enableAutoScheduler;
     [SerializeField] protected float _sendTruckInterval = 2000;
-    public int _autoMagazineID;
-    public int _autoParticleQuantity;
+    public int AutoMagazineID;
+    public int AutoParticleQuantity;
 
-    protected float SendTruckInterval
+    public float SendTruckInterval
     {
-        get { return _sendTruckInterval / Config.SimulationSpeed; }
+        get { return _sendTruckInterval / Settings.SimulationSpeed; }
+        set { _sendTruckInterval = value; }
+    }
+
+    public bool EnableAutoScheduler
+    {
+        get { return _enableAutoScheduler; }
+        set { _enableAutoScheduler = value; }
     }
 
     void Start()
     {
+        _sendTruckAuto = false;
+        _truckScheduled = false;
+
         _enableAutoScheduler = false;
         _sendTruckManually = false;
         _sendTruckAuto = false;
@@ -50,7 +60,7 @@ public abstract class TransportStation : MonoBehaviour
         if (_sendTruckAuto)
         {
             _sendTruckAuto = false;
-            ScheduleNewTruck(_autoMagazineID, _autoParticleQuantity);
+            ScheduleNewTruck(AutoMagazineID, AutoParticleQuantity);
         }
 
         if (_enableAutoScheduler)
@@ -91,5 +101,10 @@ public abstract class TransportStation : MonoBehaviour
     public void TruckReturned()
     {
         _truckScheduled = false;
+    }
+
+    public void Restart()
+    {
+        Start();
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-class SimulationDataDisplay : MonoBehaviour
+class DataDisplay : MonoBehaviour
 {
     [SerializeField] private List<GameObject> m_machines;
     private List<Machine> _machines = new List<Machine>();
@@ -39,9 +39,9 @@ class SimulationDataDisplay : MonoBehaviour
         }
         _machineBrakeChanceValues.text = textValues;
 
-        if(SimulationData.BrokenParticlesCount != 0)
+        if(Data.BrokenParticlesCount != 0)
         {
-            _brokenParticlesPerc.text = Convert.ToString(Math.Round(SimulationData.BrokenParticlesCount / SimulationData.ParticlesCount, 3));
+            _brokenParticlesPerc.text = Convert.ToString(Math.Round(Data.BrokenParticlesCount / Data.ParticlesCount, 3));
         }
         else
         {
