@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1223283441616656813}
   m_Layer: 0
   m_Name: Transport Station Reception
-  m_TagString: Untagged
+  m_TagString: TransportStation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fd7a5bcf2618ce6419acfff8d0ea59fe, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: cea2d77310af7a94e9d996a0b091bfe8, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,12 +96,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _templateTruck: {fileID: 8590950350665680799, guid: f853d0759a77e20498636582d20e0c2c,
     type: 3}
+  _truckScheduled: 0
   _storehouses:
   - {fileID: 0}
   _sendTruckManually: 0
   _manualMagazineID: 0
-  _manualParticleQuantity: 0
+  _manualParticleQuantity: 3
   _enableAutoScheduler: 0
   _sendTruckInterval: 2000
   _autoMagazineID: 0
-  _autoParticleQuantity: 0
+  _autoParticleQuantity: 3
+  targets: []

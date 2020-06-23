@@ -71,8 +71,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fd7a5bcf2618ce6419acfff8d0ea59fe, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.057691574, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c1568e1be60b5df4ab2b01d14e09164f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,14 +96,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _templateTruck: {fileID: 5733144762299476331, guid: 242a726cbc472da4fbb3f6d488143165,
     type: 3}
+  _truckScheduled: 0
   _storehouses:
   - {fileID: 0}
   _sendTruckManually: 0
   _manualMagazineID: 0
   _manualParticleQuantity: 2
-  _enableAutoScheduler: 0
-  _sendTruckInterval: 2000
+  _enableAutoScheduler: 1
+  _sendTruckInterval: 500
   _autoMagazineID: 0
-  _autoParticleQuantity: 2
+  _autoParticleQuantity: 4
+  targets:
+  - {fileID: 0}
   _templatePastaParticle: {fileID: 650375487817348760, guid: b418587c9af0b5a4cbf59aa16c93dc5c,
     type: 3}
