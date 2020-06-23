@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1223283441616656813}
   m_Layer: 0
   m_Name: Transport Station Reception
-  m_TagString: Untagged
+  m_TagString: TransportStationReception
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _templateTruck: {fileID: 8590950350665680799, guid: f853d0759a77e20498636582d20e0c2c,
     type: 3}
+  _truckScheduled: 0
   _storehouses:
   - {fileID: 0}
   _sendTruckManually: 0
@@ -103,5 +104,5 @@ MonoBehaviour:
   _manualParticleQuantity: 0
   _enableAutoScheduler: 0
   _sendTruckInterval: 2000
-  _autoMagazineID: 0
-  _autoParticleQuantity: 0
+  AutoMagazineID: 0
+  AutoParticleQuantity: 0

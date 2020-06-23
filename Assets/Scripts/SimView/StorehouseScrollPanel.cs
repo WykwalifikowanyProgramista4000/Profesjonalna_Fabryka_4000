@@ -18,4 +18,9 @@ public class StorehouseScrollPanel : MonoBehaviour
             storehousePanels.Add(storehousePanelsObject.GetComponent<StorehousePanel>());
         }
     }
+
+    public void Restart()
+    {
+        Start();
+    }
 }

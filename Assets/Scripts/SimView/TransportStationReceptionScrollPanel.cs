@@ -22,5 +22,10 @@ public class TransportStationReceptionScrollPanel : MonoBehaviour
             transportStationPanels.Add(receptionStationPanelsObject.GetComponent<TransportStationPanel>());
         }
     }
+
+    public void Restart()
+    {
+        Start();
+    }
 }
 

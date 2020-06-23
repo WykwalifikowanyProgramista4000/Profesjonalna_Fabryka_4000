@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Timers;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class Simulation : MonoBehaviour
 
     public TransportStationDelieveryScrollPanel delieverySettings;
     public TransportStationReceptionScrollPanel receptionSettings;
+    public MachineScrollPanel machineSettings;
+    public StorehouseScrollPanel storehouseSettings;
 
     public List<Machine> machines;
     public List<Spliter> spliters;
@@ -19,6 +22,18 @@ public class Simulation : MonoBehaviour
 
     void Start()
     {
+        machines = new List<Machine>();
+        spliters = new List<Spliter>();
+        storehouses = new List<Storehouse>();
+        delieveryTransportStations = new List<TransportStation>();
+        receptionTransportStations = new List<TransportStation>();
+
+        machines = GameObject.FindGameObjectsWithTag("Maszyna").Select(x => x.GetComponent<Machine>()).ToList();
+        receptionTransportStations = GameObject.FindGameObjectsWithTag("TransportStationReception").Select(x => x.GetComponent<TransportStation>()).ToList();
+        delieveryTransportStations = GameObject.FindGameObjectsWithTag("TransportStationReception").Select(x => x.GetComponent<TransportStation>()).ToList();
+
+        machineSettings.Restart();
+
         _loger.InitiateMachineDataLog(machines);
     }
 

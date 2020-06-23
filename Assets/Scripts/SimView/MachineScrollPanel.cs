@@ -27,4 +27,9 @@ public class MachineScrollPanel : MonoBehaviour
             machinePanels.Add(machinePanelObject.GetComponent<MachinePanel>());
         }
     }
+
+    public void Restart()
+    {
+        Start();
+    }
 }
