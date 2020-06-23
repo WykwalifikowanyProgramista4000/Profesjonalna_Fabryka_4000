@@ -32,7 +32,7 @@ public abstract class TransportTruck : MonoBehaviour
             float step = _speed * Time.deltaTime;
             this.transform.position = Vector2.MoveTowards(this.transform.position, _designatedTransportStation.transform.position, step);
         }
-        else if (_designatedTransportStation.CompareTag("TransportStation"))
+        else if (_designatedTransportStation.CompareTag("TransportStationReception") || _designatedTransportStation.CompareTag("TransportStationDelievery"))
         {
             _currentLocation = Location.atTruckBase;
 

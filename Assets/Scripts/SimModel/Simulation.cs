@@ -8,6 +8,7 @@ using UnityEngine;
 public class Simulation : MonoBehaviour
 {
     private Loger _loger = new Loger();
+    private int _logerCounter;
 
     public TransportStationDelieveryScrollPanel delieverySettings;
     public TransportStationReceptionScrollPanel receptionSettings;
@@ -22,6 +23,7 @@ public class Simulation : MonoBehaviour
 
     void Start()
     {
+        _logerCounter = 0;
         machines = new List<Machine>();
         spliters = new List<Spliter>();
         storehouses = new List<Storehouse>();
@@ -30,17 +32,27 @@ public class Simulation : MonoBehaviour
 
         machines = GameObject.FindGameObjectsWithTag("Maszyna").Select(x => x.GetComponent<Machine>()).ToList();
         receptionTransportStations = GameObject.FindGameObjectsWithTag("TransportStationReception").Select(x => x.GetComponent<TransportStation>()).ToList();
-        delieveryTransportStations = GameObject.FindGameObjectsWithTag("TransportStationReception").Select(x => x.GetComponent<TransportStation>()).ToList();
+        delieveryTransportStations = GameObject.FindGameObjectsWithTag("TransportStationDelievery").Select(x => x.GetComponent<TransportStation>()).ToList();
+        storehouses = GameObject.FindGameObjectsWithTag("Storehouse").Select(x => x.GetComponent<Storehouse>()).ToList();
 
-        machineSettings.Restart();
+        machineSettings.PopulateScrollList();
+        delieverySettings.PopulateScrollList();
+        receptionSettings.PopulateScrollList();
+        storehouseSettings.PopulateScrollList();
+
+
 
         _loger.InitiateMachineDataLog(machines);
     }
 
     void Update()
     {
-
-        _loger.LogMachinesData(machines);
+        if (_logerCounter % 15 == 0)
+        {
+            _loger.LogMachinesData(machines);
+            _logerCounter = 0;
+        }
+        _logerCounter++;
 
     }
 

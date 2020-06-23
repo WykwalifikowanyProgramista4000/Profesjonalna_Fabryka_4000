@@ -11,25 +11,13 @@ public class MachineScrollPanel : MonoBehaviour
     [SerializeField] private GameObject _templatePanel;
     public List<MachinePanel> machinePanels;
 
-    // Start is called before the first frame update
-    void Start()
+    public void PopulateScrollList()
     {
-        //Transform[] panels = GetComponentsInChildren<Transform>();
-        //foreach (var panel in panels)
-        //{
-        //    Destroy(panel.gameObject);
-        //}
-
         foreach (var machine in simulation.GetComponent<Simulation>().machines)
         {
             GameObject machinePanelObject = Instantiate(_templatePanel, this.transform);
             machinePanelObject.GetComponent<MachinePanel>().Machine = machine;
             machinePanels.Add(machinePanelObject.GetComponent<MachinePanel>());
         }
-    }
-
-    public void Restart()
-    {
-        Start();
     }
 }

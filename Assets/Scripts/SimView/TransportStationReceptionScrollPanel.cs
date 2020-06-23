@@ -13,7 +13,7 @@ public class TransportStationReceptionScrollPanel : MonoBehaviour
     [SerializeField] private GameObject _templatePanel;
     public List<TransportStationPanel> transportStationPanels;
 
-    void Start()
+    public void PopulateScrollList()
     {
         foreach (var receptionStation in simulation.GetComponent<Simulation>().receptionTransportStations)
         {
@@ -21,11 +21,6 @@ public class TransportStationReceptionScrollPanel : MonoBehaviour
             receptionStationPanelsObject.GetComponent<TransportStationPanel>().TransportStation = receptionStation;
             transportStationPanels.Add(receptionStationPanelsObject.GetComponent<TransportStationPanel>());
         }
-    }
-
-    public void Restart()
-    {
-        Start();
     }
 }
 

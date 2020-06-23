@@ -28,22 +28,30 @@ public class Loger
 
     public void LogMachinesData(List<Machine> machines)
     {
-        string queueLine = Time.time.ToString();
+        // Buffer Queue
+        string line = Time.time.ToString();
         foreach (var machine in machines)
         {
-            queueLine += ";\t" + machine.pastaBufferQueue.Count;
+            line += ";\t" + machine.pastaBufferQueue.Count;
         }
 
         using (System.IO.StreamWriter log_machine = new System.IO.StreamWriter(logAddres_machineQueueFill, true))
         {
-            log_machine.WriteLine(queueLine);
+            log_machine.WriteLine(line);
 
             log_machine.Close();
         }
 
-        //using (System.IO.StreamWriter log_machine = new System.IO.StreamWriter(logAddres_machineBreakeChance, true))
+        //// Breake Chance
+        //string line = Time.time.ToString();
+        //foreach (var machine in machines)
         //{
-        //    log_machine.WriteLine(breakeChanceData);
+        //    line += ";\t" + machine.pastaBufferQueue.Count;
+        //}
+
+        //using (System.IO.StreamWriter log_machine = new System.IO.StreamWriter(logAddres_machineQueueFill, true))
+        //{
+        //    log_machine.WriteLine(line);
 
         //    log_machine.Close();
         //}

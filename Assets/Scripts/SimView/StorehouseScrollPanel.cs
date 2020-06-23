@@ -9,7 +9,7 @@ public class StorehouseScrollPanel : MonoBehaviour
     [SerializeField] private GameObject _templatePanel;
     public List<StorehousePanel> storehousePanels;
 
-    void Start()
+    public void PopulateScrollList()
     {
         foreach (var storehouse in simulation.GetComponent<Simulation>().storehouses)
         {
@@ -17,10 +17,5 @@ public class StorehouseScrollPanel : MonoBehaviour
             storehousePanelsObject.GetComponent<StorehousePanel>().Storehouse = storehouse;
             storehousePanels.Add(storehousePanelsObject.GetComponent<StorehousePanel>());
         }
-    }
-
-    public void Restart()
-    {
-        Start();
     }
 }

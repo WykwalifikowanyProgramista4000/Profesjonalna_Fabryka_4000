@@ -7,10 +7,13 @@ TagManager:
   - Maszyna
   - Destroyer
   - Storehouse
-  - TransportStation
   - Spliter
   - Pasta
   - Machine Panel
+  - Truck
+  - TransportStationDelievery
+  - TransportStationReception
+  - TransportStation
   layers:
   - Default
   - TransparentFX
