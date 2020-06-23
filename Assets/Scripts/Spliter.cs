@@ -4,7 +4,7 @@ using System.Timers;
 using UnityEngine;
 
 
-public class Spliter : MonoBehaviour
+public class Spliter : Node
 {
     [Header("Splitter Settings")]
     [SerializeField] private int defaultRouteID = 0;
@@ -13,10 +13,17 @@ public class Spliter : MonoBehaviour
     [SerializeField] private List<AssemblyLineElementList> m_templateRoutesForPastaParticle = new List<AssemblyLineElementList>();
     private List<Queue<GameObject>> _templateRoutesForPastaParticle = new List<Queue<GameObject>>();
 
+    [Header("Targets")]
+    [SerializeField] private List<Transform> targets = new List<Transform>();
+
     private System.Random random = new System.Random();
 
     private void Start()
     {
+        /* pola klasy Node */
+        coordinates = this.transform.position;
+        targetsList = targets;
+
         CreateQueues();
     }
 

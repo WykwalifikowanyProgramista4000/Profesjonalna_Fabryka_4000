@@ -4,7 +4,7 @@ using System.Timers;
 using UnityEngine;
 
 
-public class Machine : MonoBehaviour
+public class Machine : Node
 {
     #region Properties
     [SerializeField] private float _processingTime;
@@ -25,6 +25,9 @@ public class Machine : MonoBehaviour
     [SerializeField] private Vector2 processingQueueNextRowOffset = new Vector2();
     [SerializeField] private int _processingQueueElementsPerRow = 8;
 
+    [Header("Targets")]
+    [SerializeField] private List<Transform> targets = new List<Transform>();
+
     private Timer workTimer;
     private Stopwatch stopwatch;
     private Brrr brrr;
@@ -37,7 +40,7 @@ public class Machine : MonoBehaviour
     private System.Random _random;
 
     private Color initialMachineColor;
-    
+
     public float ProcessingTime
     {
         get { return _processingTime / Config.SimulationSpeed; }
@@ -53,6 +56,10 @@ public class Machine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /* pola klasy Node */
+        coordinates = this.transform.position;
+        targetsList = targets;
+
         brrr = GetComponentInChildren<Brrr>();
         progress_bar = GetComponentInChildren<ProgressBar>();
         workTimer = new Timer(ProcessingTime);

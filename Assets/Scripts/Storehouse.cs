@@ -17,7 +17,7 @@ public class AssemblyLineElementList
 
 // === //
 
-public class Storehouse : MonoBehaviour
+public class Storehouse : Node
 {
 
     [SerializeField] private int maxStorageCapacity = 100;
@@ -33,6 +33,9 @@ public class Storehouse : MonoBehaviour
     [SerializeField] private Vector2 _storageQueueNextRowOffset = new Vector2(0, 0.09f);
     [SerializeField] private int _storageQueueElementsPerRow = 4;
 
+    [Header("Targets")]
+    [SerializeField] private List<Transform> targets = new List<Transform>();
+
     [Header("   ")]
     [SerializeField] private List<AssemblyLineElementList> m_templateRoutesForPastaParticle = new List<AssemblyLineElementList>();
     private List<Queue<GameObject>> _templateRoutesForPastaParticle = new List<Queue<GameObject>>();
@@ -42,6 +45,10 @@ public class Storehouse : MonoBehaviour
 
     void Start()
     {
+        /* pola klasy Node */
+        coordinates = this.transform.position;
+        targetsList = targets;
+
         CreateQueues();
     }
 

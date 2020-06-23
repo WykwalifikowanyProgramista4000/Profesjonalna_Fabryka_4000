@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public abstract class TransportStation : MonoBehaviour
+public abstract class TransportStation : Node
 {
     protected bool _sendTruckAuto;
     private Timer _autoSchedulerTimer;
@@ -26,6 +26,9 @@ public abstract class TransportStation : MonoBehaviour
     public int _autoMagazineID;
     public int _autoParticleQuantity;
 
+    [Header("Targets")]
+    [SerializeField] private List<Transform> targets = new List<Transform>();
+
     protected float SendTruckInterval
     {
         get { return _sendTruckInterval / Config.SimulationSpeed; }
@@ -33,6 +36,10 @@ public abstract class TransportStation : MonoBehaviour
 
     void Start()
     {
+        /* pola klasy Node */
+        coordinates = this.transform.position;
+        targetsList = targets;
+
         _enableAutoScheduler = false;
         _sendTruckManually = false;
         _sendTruckAuto = false;
