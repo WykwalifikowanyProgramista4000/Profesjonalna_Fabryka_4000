@@ -4,7 +4,7 @@ using System.Timers;
 using UnityEngine;
 
 
-public class Machine : Node
+public class Machine : MonoBehaviour
 {
     #region Properties
     [SerializeField] private float _processingTime;
@@ -56,9 +56,6 @@ public class Machine : Node
     // Start is called before the first frame update
     void Start()
     {
-        /* pola klasy Node */
-        coordinates = this.transform.position;
-        targetsList = targets;
 
         brrr = GetComponentInChildren<Brrr>();
         progress_bar = GetComponentInChildren<ProgressBar>();

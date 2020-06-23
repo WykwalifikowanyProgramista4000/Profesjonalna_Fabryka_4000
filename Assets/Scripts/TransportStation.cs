@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public abstract class TransportStation : Node
+public abstract class TransportStation : MonoBehaviour
 {
     protected bool _sendTruckAuto;
     private Timer _autoSchedulerTimer;
@@ -36,9 +36,6 @@ public abstract class TransportStation : Node
 
     void Start()
     {
-        /* pola klasy Node */
-        coordinates = this.transform.position;
-        targetsList = targets;
 
         _enableAutoScheduler = false;
         _sendTruckManually = false;

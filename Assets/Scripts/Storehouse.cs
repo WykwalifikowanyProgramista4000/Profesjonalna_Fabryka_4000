@@ -17,7 +17,7 @@ public class AssemblyLineElementList
 
 // === //
 
-public class Storehouse : Node
+public class Storehouse : MonoBehaviour
 {
 
     [SerializeField] private int maxStorageCapacity = 100;
@@ -45,9 +45,6 @@ public class Storehouse : Node
 
     void Start()
     {
-        /* pola klasy Node */
-        coordinates = this.transform.position;
-        targetsList = targets;
 
         CreateQueues();
     }

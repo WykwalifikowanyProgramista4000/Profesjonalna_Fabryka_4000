@@ -11,19 +11,15 @@ using Vector2 = UnityEngine.Vector2;
 
 class Arrow : MonoBehaviour
 {
-    private Vector2 source;
-    private List<Vector2> targetsList;
-    private LineRenderer lineRenderer;
-    private GameObject arrowObject;
+    [SerializeField] private List<Transform> targetsList;
+
+    [SerializeField] private GameObject arrowObject;
 
     void Start()
-    {
-        arrowObject.AddComponent(Type.GetType("SpriteRenderer"));
-        arrowObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/szczala");
-
-        foreach (Vector2 target in targetsList)
+    {        
+        foreach (Transform target in targetsList)
         {
-            DrawArrowFromSourceToTarget(source, target);
+            DrawArrowFromSourceToTarget(this.transform.position, target.position);
         }
 
     }
@@ -37,12 +33,10 @@ class Arrow : MonoBehaviour
     {
         GameObject arrow = Instantiate(arrowObject, (source + target)/2, Quaternion.identity);
 
+        var angle = Quaternion.FromToRotation(new UnityEngine.Vector3(1,0,0), target - source);
+
+        arrow.transform.rotation = angle;
     }
 
-    public Arrow(Vector2 source, List<Transform> targetsList)
-    {
-        this.source = source;
-        this.targetsList = targetsList.Select(t => new Vector2(t.position.x, t.position.y)).ToList();
-    }
 } 
 

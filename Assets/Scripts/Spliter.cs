@@ -4,7 +4,7 @@ using System.Timers;
 using UnityEngine;
 
 
-public class Spliter : Node
+public class Spliter : MonoBehaviour
 {
     [Header("Splitter Settings")]
     [SerializeField] private int defaultRouteID = 0;
@@ -20,9 +20,6 @@ public class Spliter : Node
 
     private void Start()
     {
-        /* pola klasy Node */
-        coordinates = this.transform.position;
-        targetsList = targets;
 
         CreateQueues();
     }
