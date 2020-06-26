@@ -9,7 +9,6 @@ public class MachinePanel : MonoBehaviour
 
     public GameObject machineID;
     public GameObject processingTime;
-    public GameObject throughput;
 
     public GameObject breakeChance;
     private Text _breakeChance;
@@ -20,7 +19,6 @@ public class MachinePanel : MonoBehaviour
 
         machineID.GetComponent<Text>().text = Machine.name;
         processingTime.GetComponentInChildren<Text>().text = Machine.ProcessingTime.ToString();
-        throughput.GetComponentInChildren<Text>().text = Machine.Throughput.ToString();
     }
 
     private void Update()
@@ -31,10 +29,5 @@ public class MachinePanel : MonoBehaviour
     public void OnEndEdit_ProcessingTime(string value)
     {
         Machine.ProcessingTime = float.Parse(value);
-    }
-
-    public void OnEndEdit_Throughput(string value)
-    {
-        Machine.Throughput = int.Parse(value);
     }
 }

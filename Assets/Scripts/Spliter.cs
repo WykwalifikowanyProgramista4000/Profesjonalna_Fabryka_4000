@@ -92,8 +92,7 @@ public class Spliter : MonoBehaviour
         float total = 0;
         for (int i = 0; i < m_templateRoutesForPastaParticle.Count; i++)
         {
-            _autoPastaDistribution[i] = (m_templateRoutesForPastaParticle[i].list[0].GetComponent<Machine>().Throughput /
-                                     m_templateRoutesForPastaParticle[i].list[0].GetComponent<Machine>().ProcessingTime);
+            _autoPastaDistribution[i] = 1/m_templateRoutesForPastaParticle[i].list[0].GetComponent<Machine>().ProcessingTime;
             total += _autoPastaDistribution[i];
         }
 

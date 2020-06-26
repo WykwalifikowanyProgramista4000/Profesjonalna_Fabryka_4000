@@ -8,7 +8,6 @@ public class Machine : MonoBehaviour
 {
     #region Properties
     [SerializeField] private float _processingTime;
-    [SerializeField] private int _throughput;
     [SerializeField] private bool _isWorking = false;
     [SerializeField] private bool _isBroken = false;
     [SerializeField] private float _currentBreakingChance = 0; 
@@ -20,13 +19,9 @@ public class Machine : MonoBehaviour
     [SerializeField] private int _bufferQueueElementsPerRow = 4;
 
     [Header("Processing Queue settings")]
-    [SerializeField] private Vector2 processingQueueStartOffset = new Vector2();
-    [SerializeField] private Vector2 processingQueueNextElementOffset = new Vector2();
-    [SerializeField] private Vector2 processingQueueNextRowOffset = new Vector2();
     [SerializeField] private int _processingQueueElementsPerRow = 8;
 
     [Header("Targets")]
-    [SerializeField] private List<Transform> targets = new List<Transform>();
 
     private Timer workTimer;
     private Stopwatch stopwatch;
@@ -34,7 +29,7 @@ public class Machine : MonoBehaviour
     private ProgressBar progress_bar;
 
     public Queue<GameObject> pastaBufferQueue;
-    public Queue<GameObject> pastaProcessingQueue;
+    public PastaParticle pastaProcessing;
 
     private bool _workFinished;
     private System.Random _random;
@@ -46,13 +41,7 @@ public class Machine : MonoBehaviour
         get { return _processingTime / Settings.SimulationSpeed; }
         set { _processingTime = value; }
     }
-
-    public int Throughput
-    {
-        get { return _throughput; }
-        set { _throughput = value; }
-    }
-
+  
     public float CurrentBreakingChance
     {
         get { return _currentBreakingChance; }
@@ -65,8 +54,7 @@ public class Machine : MonoBehaviour
     {
         // queues
         pastaBufferQueue = new Queue<GameObject>();
-        pastaProcessingQueue = new Queue<GameObject>();
-
+        
         // default flags and parameters
         _isWorking = false;
         _isBroken = false;
@@ -93,13 +81,13 @@ public class Machine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_workFinished & pastaProcessingQueue.Count > 0)
+        if (_workFinished)
         {
             _workFinished = false;
             SendToNextMachine();
         }
 
-        if (_isWorking == false && pastaBufferQueue.Count > _throughput - 1)
+        if (_isWorking == false && pastaBufferQueue.Count > 0)
         {
             _isWorking = true;
             StartProcessing();
@@ -118,33 +106,24 @@ public class Machine : MonoBehaviour
     #region Methods
     private void StartProcessing()
     {
-        for (int i = 0; i < _throughput; i++)
+        GameObject dequeuedParticle = pastaBufferQueue.Dequeue();
+
+        CalculateBreakingChances(dequeuedParticle);
+
+        if (_isBroken)
         {
-            GameObject dequeuedParticle = pastaBufferQueue.Dequeue();
-
-            CalculateBreakingChances(dequeuedParticle);
-
-            if (_isBroken)
-            {
-                dequeuedParticle.GetComponent<PastaParticle>().DamageParticle();
-                AddToPastaProcessingQueue(dequeuedParticle);
-            }
-            else
-            {
-                AddToPastaProcessingQueue(dequeuedParticle);
-            }
-
+            dequeuedParticle.GetComponent<PastaParticle>().DamageParticle();
+        }
+        else
+        {
+            pastaProcessing = dequeuedParticle.GetComponent<PastaParticle>();
+            pastaProcessing.transform.position = this.transform.position;
         }
     }
 
     private void SendToNextMachine()
     {
-        GameObject pastaParticle;
-        while (pastaProcessingQueue.Count > 0)
-        {
-            pastaParticle = pastaProcessingQueue.Dequeue();
-            pastaParticle.GetComponent<PastaParticle>().movementToggle = true;
-        }
+        pastaProcessing.movementToggle = true;
     }
 
     private void OnProcessingTimeTimerElapsed(object source, ElapsedEventArgs e)
@@ -185,28 +164,10 @@ public class Machine : MonoBehaviour
                 _bufferQueueElementsPerRow);
     }
 
-    public void AddToPastaProcessingQueue(GameObject pastaParticle)
-    {
-        pastaProcessingQueue.Enqueue(pastaParticle);
-
-        ArrangeQueue(pastaBufferQueue,      // pasta buffer queue rearrangement
-                _bufferQueueStartOffset,
-                _bufferQueueNextElementOffset,
-                _bufferQueueNextRowOffset,
-                _bufferQueueElementsPerRow);
-
-        ArrangeQueue(pastaProcessingQueue,  // pasta processing queue rearrangement
-                processingQueueStartOffset,
-                processingQueueNextElementOffset,
-                processingQueueNextRowOffset,
-                _processingQueueElementsPerRow);
-
-    }
-
     private void CalculateBreakingChances(GameObject dequeuedParticle)
     {
         _currentBreakingChance += dequeuedParticle.GetComponent<PastaParticle>().isDamaged ? 0.005f : 0;
-        _currentBreakingChance += pastaBufferQueue.Count / (1000 * _throughput);
+        _currentBreakingChance += pastaBufferQueue.Count / 1000;
         int particleBrokenRanodmizer = _random.Next(51, 100);
         if (particleBrokenRanodmizer < _currentBreakingChance) _isBroken = true;
     }
