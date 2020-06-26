@@ -38,6 +38,8 @@ public class Machine : MonoBehaviour
 
     private bool _workFinished;
     private System.Random _random;
+    private float _breakingTime;
+    private float _restorationTime;
 
     private Color initialMachineColor;
 
@@ -111,7 +113,11 @@ public class Machine : MonoBehaviour
         progress_bar.maximum = ProcessingTime;
         progress_bar.current = stopwatch.ElapsedMilliseconds;
 
-        if (_isBroken) GetComponent<SpriteRenderer>().color = Color.red;
+        if (_isBroken)
+        {
+            GetComponent<SpriteRenderer>().color = Color.red;
+            CalculateFixingChances();
+        }
         else GetComponent<SpriteRenderer>().color = initialMachineColor;
     }
 
@@ -122,15 +128,13 @@ public class Machine : MonoBehaviour
         {
             GameObject dequeuedParticle = pastaBufferQueue.Dequeue();
 
-            CalculateBreakingChances(dequeuedParticle);
-
             if (_isBroken)
             {
                 dequeuedParticle.GetComponent<PastaParticle>().DamageParticle();
-                AddToPastaProcessingQueue(dequeuedParticle);
             }
             else
             {
+                CalculateBreakingChances(dequeuedParticle);
                 AddToPastaProcessingQueue(dequeuedParticle);
             }
 
@@ -203,12 +207,42 @@ public class Machine : MonoBehaviour
 
     }
 
+    private double GetRandomGaussianNumebr(float mean, float std)
+    {
+        double u1 = 1.0 - _random.NextDouble(); //uniform(0,1] random doubles
+        double u2 = 1.0 - _random.NextDouble();
+        double randStdNormal = System.Math.Sqrt(-2.0 * System.Math.Log(u1)) *
+                     System.Math.Sin(2.0 * System.Math.PI * u2); //random normal(0,1)
+
+        return mean + std * randStdNormal; //random normal(mean,stdDev^2)
+    }
     private void CalculateBreakingChances(GameObject dequeuedParticle)
     {
-        _currentBreakingChance += dequeuedParticle.GetComponent<PastaParticle>().isDamaged ? 0.005f : 0;
-        _currentBreakingChance += pastaBufferQueue.Count / (1000 * _throughput);
-        int particleBrokenRanodmizer = _random.Next(51, 100);
-        if (particleBrokenRanodmizer < _currentBreakingChance) _isBroken = true;
+        _currentBreakingChance += dequeuedParticle.GetComponent<PastaParticle>().isDamaged ? 0.2f : 0;
+        _currentBreakingChance += pastaBufferQueue.Count / 2;
+        //int particleBrokenRanodmizer = _random.Next(0, 100);
+
+        double particleBrokenRanodmizer = GetRandomGaussianNumebr(0.5f, 0.11f);
+
+        if (100 * particleBrokenRanodmizer < _currentBreakingChance)
+        {
+            _isBroken = true;
+            _breakingTime = Time.time;
+            _restorationTime = (float)GetRandomGaussianNumebr(0.5f, 0.11f)*10;
+        }
+        UnityEngine.Debug.Log(100 * particleBrokenRanodmizer);
+    }
+
+    private void CalculateFixingChances()
+    {
+        float currentTime = Time.time;
+
+        if (currentTime - _breakingTime > _restorationTime)
+        {
+            _currentBreakingChance = 0;
+            _isBroken = false;
+        }
+
     }
 
     public void Restart()
