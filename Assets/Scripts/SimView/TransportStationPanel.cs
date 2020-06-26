@@ -22,7 +22,7 @@ public class TransportStationPanel : MonoBehaviour
 
     void Start()
     {
-        _enableAutoScheduler = false;
+        //_enableAutoScheduler = false;
         SimulationRunning = false;
 
         TransportStationName.GetComponent<Text>().text = TransportStation.name;

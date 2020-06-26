@@ -9,6 +9,12 @@ public class Simulation : MonoBehaviour
 {
     private Loger _loger = new Loger();
     private int _logerCounter;
+    private float _runDuration;
+    private int _numberOfRuns;
+    private int _runCounter;
+
+    private bool _simulationScenarioInProgress;
+    private bool _simulationRunInProgress;
     public bool logON;
 
     public TransportStationDelieveryScrollPanel delieverySettings;
@@ -22,9 +28,30 @@ public class Simulation : MonoBehaviour
     public List<TransportStation> delieveryTransportStations;
     public List<TransportStation> receptionTransportStations;
 
+    public float RunDuration
+    {
+        get { return _runDuration; }
+        set { _runDuration = value; }
+    }
+
+    public int NumberOfRuns
+    {
+        get { return _numberOfRuns; }
+        set { _numberOfRuns = (value < 1) ? 1 : value; }
+    }
+
+    public bool SimulationScenarioInProgress
+    {
+        get { return _simulationScenarioInProgress; }
+    }
+
     void Start()
     {
+        _runDuration = 300;
+        _numberOfRuns = 0;
         _logerCounter = 0;
+        _simulationScenarioInProgress = false;
+        _simulationRunInProgress = false;
         logON = false;
         machines = new List<Machine>();
         spliters = new List<Spliter>();
@@ -111,6 +138,36 @@ public class Simulation : MonoBehaviour
         }
     }
 
+    public void ResetSimulation()
+    {
+        ResetNodes();
+        logON = false;
+    }
 
+    public void StartSimulation()
+    {
+        _simulationScenarioInProgress = true;
+    }
+
+    public void StartRun()
+    {
+        if (_numberOfRuns > _runCounter && _simulationRunInProgress == false)
+        {
+            // enable transport stations
+            foreach (var transportStationPanel in delieverySettings.transportStationPanels)
+            {
+                transportStationPanel.SimulationRunning = _simulationRunInProgress;
+            }
+
+            // enable reception stations
+            foreach (var transportStationPanel in receptionSettings.transportStationPanels)
+            {
+                transportStationPanel.SimulationRunning = _simulationRunInProgress;
+            }
+
+            // enable loging
+            logON = true;
+        }
+    }
 }
 
