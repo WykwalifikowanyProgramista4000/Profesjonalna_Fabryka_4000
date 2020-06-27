@@ -29,7 +29,7 @@ public class TransportStationPanel : MonoBehaviour
         TransportInterval.GetComponentInChildren<Text>().text = TransportStation.SendTruckInterval.ToString();
         Quantity.GetComponentInChildren<Text>().text = TransportStation.AutoParticleQuantity.ToString();
         TargetMagazineID.GetComponentInChildren<Text>().text = TransportStation.AutoMagazineID.ToString();
-        shcedulingEnabled.GetComponent<Toggle>().isOn = false;
+        //shcedulingEnabled.GetComponent<Toggle>().isOn = false;
     }
 
     private void Update()
