@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Timers;
@@ -9,6 +10,13 @@ public class Simulation : MonoBehaviour
 {
     private Loger _loger = new Loger();
     private int _logerCounter;
+    private float _runDuration;
+    private float _currentRunStartTime;
+    private int _numberOfScheduledRuns;
+    private int _runCounter;
+
+    private bool _simulationScenarioInProgress;
+    private bool _simulationRunInProgress;
     public bool logON;
 
     public TransportStationDelieveryScrollPanel delieverySettings;
@@ -22,9 +30,35 @@ public class Simulation : MonoBehaviour
     public List<TransportStation> delieveryTransportStations;
     public List<TransportStation> receptionTransportStations;
 
+    public int RunCounter
+    {
+        get { return _runCounter; }
+    }
+
+    public float RunDuration
+    {
+        get { return _runDuration; }
+        set { _runDuration = value; }
+    }
+
+    public int NumberOfRuns
+    {
+        get { return _numberOfScheduledRuns; }
+        set { _numberOfScheduledRuns = (value < 1) ? 1 : value; }
+    }
+
+    public bool SimulationScenarioInProgress
+    {
+        get { return _simulationScenarioInProgress; }
+    }
+
     void Start()
     {
+        _runDuration = 300;
+        _numberOfScheduledRuns = 0;
         _logerCounter = 0;
+        _simulationScenarioInProgress = false;
+        _simulationRunInProgress = false;
         logON = false;
         machines = new List<Machine>();
         spliters = new List<Spliter>();
@@ -41,11 +75,6 @@ public class Simulation : MonoBehaviour
         delieverySettings.PopulateScrollList();
         receptionSettings.PopulateScrollList();
         storehouseSettings.PopulateScrollList();
-
-
-
-        _loger.InitiateMachineDataLog(machines);
-        _loger.InitiateStorehouseDataLog(storehouses);
     }
 
     void Update()
@@ -58,6 +87,26 @@ public class Simulation : MonoBehaviour
         }
         _logerCounter++;
 
+        if (_simulationScenarioInProgress)
+        {
+            if (_numberOfScheduledRuns > _runCounter && _simulationRunInProgress == false)
+            {
+                StartRun();
+            }
+            else if(_simulationRunInProgress == true && Time.time - _currentRunStartTime >= _runDuration)
+            {
+                EndRun();
+            }
+            else if(_simulationRunInProgress == false && _numberOfScheduledRuns == _runCounter)
+            {
+                EndSimulation();
+            }
+            else
+            {
+                UnityEngine.Debug.Log("Run " + _runCounter + " in progress...");
+            }
+        }
+
     }
 
     public void ResetNodes()
@@ -67,6 +116,12 @@ public class Simulation : MonoBehaviour
         foreach (var pastaParticle in pastaParticles)
         {
             Destroy(pastaParticle);
+        }
+
+        // Storehouses reset
+        foreach (var storehouse in storehouses)
+        {
+            storehouse.Restart();
         }
 
         // Machines reset
@@ -109,6 +164,55 @@ public class Simulation : MonoBehaviour
         {
             transportStationPanel.Restart();
         }
+    }
+
+    public void ResetSimulation()
+    {
+        ResetNodes();
+        logON = false;
+    }
+
+    public void StartSimulation()
+    {
+        _simulationScenarioInProgress = true;
+    }
+
+    public void StartRun()
+    {
+        _currentRunStartTime = Time.time;
+        _simulationRunInProgress = true;
+        _runCounter++;
+
+        // enable transport stations
+        foreach (var transportStationPanel in delieverySettings.transportStationPanels)
+        {
+            transportStationPanel.SimulationRunning = _simulationRunInProgress;
+        }
+
+        // enable reception stations
+        foreach (var transportStationPanel in receptionSettings.transportStationPanels)
+        {
+            transportStationPanel.SimulationRunning = _simulationRunInProgress;
+        }
+
+        // enable loging
+        _loger.InitiateMachineDataLog(machines, String.Format("run_{0:000}", _runCounter));
+        _loger.InitiateStorehouseDataLog(storehouses, String.Format("run_{0:000}", _runCounter));
+        logON = true;
+    }
+
+    private void EndRun()
+    {
+        _simulationRunInProgress = false;
+        logON = false;
+        ResetSimulation();
+    }
+
+    private void EndSimulation()
+    {
+        _simulationScenarioInProgress = false;
+        _runCounter = 0;
+        logON = false;
     }
 
 
