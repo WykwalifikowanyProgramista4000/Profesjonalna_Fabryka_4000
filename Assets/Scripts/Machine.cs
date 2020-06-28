@@ -65,6 +65,9 @@ public class Machine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Perfectly fine workaround. Nothing to look at. Just go about your buissness //
+        _throughput = 1;
+
         // queues
         pastaBufferQueue = new Queue<GameObject>();
         pastaProcessingQueue = new Queue<GameObject>();
@@ -219,8 +222,8 @@ public class Machine : MonoBehaviour
     }
     private void CalculateBreakingChances(GameObject dequeuedParticle)
     {
-        _currentBreakingChance += dequeuedParticle.GetComponent<PastaParticle>().isDamaged ? 0.2f : 0;
-        _currentBreakingChance += pastaBufferQueue.Count / 2;
+        _currentBreakingChance += dequeuedParticle.GetComponent<PastaParticle>().isDamaged ? 0.01f : 0;
+        _currentBreakingChance += pastaBufferQueue.Count / 100;
         //int particleBrokenRanodmizer = _random.Next(0, 100);
 
         double particleBrokenRanodmizer = GetRandomGaussianNumebr(0.5f, 0.11f);
