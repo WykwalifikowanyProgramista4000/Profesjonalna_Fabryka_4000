@@ -41,7 +41,7 @@ public class Machine : MonoBehaviour
     private float _breakingTime;
     private float _restorationTime;
 
-    private Color initialMachineColor;
+    private Color initialMachineColor = Color.white;
 
     public float ProcessingTime
     {
@@ -86,10 +86,11 @@ public class Machine : MonoBehaviour
         stopwatch.Reset();
         workTimer.Elapsed += OnProcessingTimeTimerElapsed;
 
-        initialMachineColor = GetComponent<SpriteRenderer>().color;
-
         // rand generator
         _random = new System.Random();
+
+        // breakage system
+        GetComponent<SpriteRenderer>().color = initialMachineColor;
     }
 
     // Update is called once per frame
