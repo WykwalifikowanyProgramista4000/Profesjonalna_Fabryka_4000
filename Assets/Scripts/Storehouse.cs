@@ -57,7 +57,7 @@ public class Storehouse : MonoBehaviour
 
     void Start()
     {
-
+        storageQueue = new Queue<GameObject>();
         CreateQueues();
     }
 
@@ -85,7 +85,7 @@ public class Storehouse : MonoBehaviour
             storageQueue.Enqueue(particle);
             IncrementParticlesCounter(particle);
         }
-        ArrangeParticleInStorehouse(particle);
+        //ArrangeParticleInStorehouse(particle);
     }
 
     public void ReleaseParticlesToAssemblyLine(int routeId, int particleQuantity = 1)
@@ -97,19 +97,18 @@ public class Storehouse : MonoBehaviour
             {
                 GameObject releasedParticle = storageQueue.Dequeue();
 
-                releasedParticle.transform.position = (Vector2)this.transform.position + new Vector2(0.12f + 0.02f*i, 0);
-                releasedParticle.GetComponent<PastaParticle>().SetRoute(_templateRoutesForPastaParticle[routeId]);
-                releasedParticle.GetComponent<PastaParticle>().movementToggle = true;
+                if(releasedParticle != null)
+                {
+                    releasedParticle.transform.position = (Vector2)this.transform.position + new Vector2(0.12f + 0.02f*i, 0);
+                    releasedParticle.GetComponent<PastaParticle>().SetRoute(_templateRoutesForPastaParticle[routeId]);
+                    releasedParticle.GetComponent<PastaParticle>().movementToggle = true;
+                }
             }
-            ArrangeQueue(storageQueue,      // pasta storage queue rearrangement
-                    _storageQueueStartOffset,
-                    _storageQueueNextElementOffset,
-                    _storageQueueNextRowOffset,
-                    _storageQueueElementsPerRow);
-        }
-        else
-        {
-            Debug.LogWarning("Magazyn: Panie, nie mam tyle (" + particleQuantity.ToString() + "), moge dać maksymalnie: " + storageQueue.Count.ToString());
+            //ArrangeQueue(storageQueue,      // pasta storage queue rearrangement
+            //        _storageQueueStartOffset,
+            //        _storageQueueNextElementOffset,
+            //        _storageQueueNextRowOffset,
+            //        _storageQueueElementsPerRow);
         }
     }
 
@@ -130,15 +129,11 @@ public class Storehouse : MonoBehaviour
                 //releasedParticle.GetComponent<PastaParticle>().SetRoute(routeToTransportTruck);
                 //releasedParticle.GetComponent<PastaParticle>().movementToggle = true;
             }
-            ArrangeQueue(storageQueue,      // pasta storage queue rearrangement
-                    _storageQueueStartOffset,
-                    _storageQueueNextElementOffset,
-                    _storageQueueNextRowOffset,
-                    4);
-        }
-        else
-        {
-            //Debug.LogWarning("Magazyn: Panie, nie mam tyle (" + particleQuantity.ToString() + "), moge dać maksymalnie: " + storageQueue.Count.ToString());
+            //ArrangeQueue(storageQueue,      // pasta storage queue rearrangement
+            //        _storageQueueStartOffset,
+            //        _storageQueueNextElementOffset,
+            //        _storageQueueNextRowOffset,
+            //        4);
         }
     }
 
@@ -205,5 +200,10 @@ public class Storehouse : MonoBehaviour
                 _templateRoutesForPastaParticle[_templateRoutesForPastaParticle.Count - 1].Enqueue(gObject);
             }
         }
+    }
+
+    public void Restart()
+    {
+        storageQueue = new Queue<GameObject>();
     }
 }

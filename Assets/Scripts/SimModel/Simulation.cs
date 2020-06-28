@@ -30,6 +30,11 @@ public class Simulation : MonoBehaviour
     public List<TransportStation> delieveryTransportStations;
     public List<TransportStation> receptionTransportStations;
 
+    public int RunCounter
+    {
+        get { return _runCounter; }
+    }
+
     public float RunDuration
     {
         get { return _runDuration; }
@@ -111,6 +116,12 @@ public class Simulation : MonoBehaviour
         foreach (var pastaParticle in pastaParticles)
         {
             Destroy(pastaParticle);
+        }
+
+        // Storehouses reset
+        foreach (var storehouse in storehouses)
+        {
+            storehouse.Restart();
         }
 
         // Machines reset

@@ -31,7 +31,7 @@ class Arrow : MonoBehaviour
 
     private void DrawArrowFromSourceToTarget(Vector2 source, Vector2 target)
     {
-        GameObject arrow = Instantiate(arrowObject, (source + target)/2, Quaternion.identity);
+        GameObject arrow = Instantiate(arrowObject, (source + target)/2, Quaternion.identity, this.transform);
 
         var angle = Quaternion.FromToRotation(new UnityEngine.Vector3(1,0,0), target - source);
 

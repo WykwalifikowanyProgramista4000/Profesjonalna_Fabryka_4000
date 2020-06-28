@@ -11,6 +11,9 @@ public class SettingsDisplayPanel : MonoBehaviour
 
     [SerializeField] private Simulation simulation;
 
+    [SerializeField] private GameObject _simulationInProgressPanelTemplate;
+    private GameObject _simulationInProgressPanelObject;
+
     [SerializeField] private InputField SimSpeed_inputField;
     [SerializeField] private InputField NumberOfRuns_inputField;
     [SerializeField] private InputField RunDuration_inputField;
@@ -44,7 +47,7 @@ public class SettingsDisplayPanel : MonoBehaviour
             NumberOfRuns_inputField.interactable = false;
             RunDuration_inputField.interactable = false;
             Start_button.interactable = false;
-            Reset_button.interactable = false;
+            //Reset_button.interactable = false;
         }
         else
         {
@@ -52,7 +55,7 @@ public class SettingsDisplayPanel : MonoBehaviour
             NumberOfRuns_inputField.interactable = true;
             RunDuration_inputField.interactable = true;
             Start_button.interactable = true;
-            Reset_button.interactable = true;
+            //Reset_button.interactable = true;
         }
     }
 
@@ -79,5 +82,8 @@ public class SettingsDisplayPanel : MonoBehaviour
     public void OnClick_Start()
     {
         simulation.StartSimulation();
+        _simulationInProgressPanelObject = Instantiate(_simulationInProgressPanelTemplate,this.transform);
+        _simulationInProgressPanelObject.GetComponent<SimulationInProgressPanel>().simulation = simulation;
+        //_simulationInProgressPanelObject.GetComponent<RectTransform>().position = new Vector3(0, -120, 0);
     }
 }
