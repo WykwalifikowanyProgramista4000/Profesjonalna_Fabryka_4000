@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -99,7 +99,7 @@ public class Loger
         }
 
         // Breake Chance
-        line = Time.time.ToString();
+        line = (Time.time - _logStartTimeMachine).ToString();
         foreach (var machine in machines)
         {
             line += ";\t" + Math.Round(machine.CurrentBreakingChance, 3);
@@ -113,10 +113,10 @@ public class Loger
         }
 
         // Broken\NotBroken
-        line = Time.time.ToString();
+        line = (Time.time - _logStartTimeMachine).ToString();
         foreach (var machine in machines)
         {
-            line += ";\t" + machine.IsBroken;
+            line += ";\t" + (machine.IsBroken == true ? 1 : 0);
         }
 
         using (System.IO.StreamWriter log_machine = new System.IO.StreamWriter(_logAddres_machine + _logName_machineBroken, true))
@@ -181,7 +181,7 @@ public class Loger
         }
 
         // fine pasta particles
-        line = Time.time.ToString();
+        line = (Time.time - _logStartTimeMachine).ToString();
         foreach (var storehouse in storehouses)
         {
             line += ";\t" + storehouse.fineParticlesCounter;
@@ -195,7 +195,7 @@ public class Loger
         }
 
         // damaged pasta particles
-        line = Time.time.ToString();
+        line = (Time.time - _logStartTimeMachine).ToString();
         foreach (var storehouse in storehouses)
         {
             line += ";\t" + storehouse.damagedParticlesCounter;
