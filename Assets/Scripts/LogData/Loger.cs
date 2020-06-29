@@ -23,7 +23,7 @@ public class Loger
         }
         _logAddres_machine = _logFolderPath + _logAddres_machine;
 
-        // Machine Breake Chance
+        // Storehouse
         if (!Directory.Exists(_logFolderPath + _logAddres_storehouse))
         {
             Directory.CreateDirectory(_logFolderPath + _logAddres_storehouse);
@@ -36,17 +36,23 @@ public class Loger
     private string _logAddres_machine = @"MachineLogs\";
     private string _logName_machineQueueFill;
     private string _logName_machineBreakeChance;
+    private string _logName_machineBroken;
 
     private string _logAddres_storehouse = @"StorehouseLogs\";
     private string _logName_storehouseQueueFill;
     private string _logName_storehouseFineParticles;
     private string _logName_storehouseDamagedParticles;
 
+    private float _logStartTimeMachine;
+    private float _logStartTimeStorehouse;
+
     #region Machine
     public void InitiateMachineDataLog(List<Machine> machines, string logName = "new_machine_log")
     {
+        _logStartTimeMachine = Time.time;
         _logName_machineQueueFill = "log_machineQueueFill_" + logName + ".txt";
         _logName_machineBreakeChance = "log_machineBreakeChance_" + logName + ".txt";
+        _logName_machineBroken = "log_machineBroken" + logName + ".txt";
 
         string header = "[time]";
         foreach (var machine in machines)
@@ -67,12 +73,19 @@ public class Loger
 
             log_machine.Close();
         }
+
+        using (System.IO.StreamWriter log_machine = new System.IO.StreamWriter(_logAddres_machine + _logName_machineBroken))
+        {
+            log_machine.WriteLine(header);
+
+            log_machine.Close();
+        }
     }
 
     public void LogMachinesData(List<Machine> machines)
     {
         // Buffer Queue
-        string line = Time.time.ToString();
+        string line = (Time.time - _logStartTimeMachine).ToString();
         foreach (var machine in machines)
         {
             line += ";\t" + machine.pastaBufferQueue.Count;
@@ -98,12 +111,27 @@ public class Loger
 
             log_machine.Close();
         }
+
+        // Broken\NotBroken
+        line = Time.time.ToString();
+        foreach (var machine in machines)
+        {
+            line += ";\t" + machine.IsBroken;
+        }
+
+        using (System.IO.StreamWriter log_machine = new System.IO.StreamWriter(_logAddres_machine + _logName_machineBroken, true))
+        {
+            log_machine.WriteLine(line);
+
+            log_machine.Close();
+        }
     }
     #endregion
 
     #region Storehouse
     public void InitiateStorehouseDataLog(List<Storehouse> storehouses, string logName = "new_storehouse_log")
     {
+        _logStartTimeStorehouse = Time.time;
         _logName_storehouseQueueFill = "log_storehouseQueueFill" + logName + ".txt";           
         _logName_storehouseFineParticles = "log_storehouseFineParticles" + logName + ".txt";
         _logName_storehouseDamagedParticles = "log_storehouseDamagedParticles" + logName + ".txt";
@@ -139,7 +167,7 @@ public class Loger
     public void LogStorehouseData(List<Storehouse> storehouses)
     {
         // Queue
-        string line = Time.time.ToString();
+        string line = (Time.time - _logStartTimeStorehouse).ToString();
         foreach (var storehouse in storehouses)
         {
             line += ";\t" + storehouse.storageQueue.Count;

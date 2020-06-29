@@ -57,8 +57,8 @@ public class Storehouse : MonoBehaviour
 
     void Start()
     {
-        storageQueue = new Queue<GameObject>();
-        CreateQueues();
+        storageQueue.Clear();
+        CreateRoutes();
     }
 
     void Update()
@@ -189,7 +189,7 @@ public class Storehouse : MonoBehaviour
         }
     }
 
-    private void CreateQueues()
+    private void CreateRoutes()
     {
         foreach (AssemblyLineElementList list in m_templateRoutesForPastaParticle)
         {
@@ -204,6 +204,6 @@ public class Storehouse : MonoBehaviour
 
     public void Restart()
     {
-        storageQueue = new Queue<GameObject>();
+        storageQueue.Clear();
     }
 }

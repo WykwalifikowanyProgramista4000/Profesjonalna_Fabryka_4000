@@ -103,7 +103,7 @@ public class Simulation : MonoBehaviour
             }
             else
             {
-                UnityEngine.Debug.Log("Run " + _runCounter + " in progress...");
+                //UnityEngine.Debug.Log("Run " + _runCounter + " in progress...");
             }
         }
 

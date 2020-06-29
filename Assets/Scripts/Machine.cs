@@ -30,11 +30,10 @@ public class Machine : MonoBehaviour
 
     private Timer workTimer;
     private Stopwatch stopwatch;
-    private Brrr brrr;
     private ProgressBar progress_bar;
 
-    public Queue<GameObject> pastaBufferQueue;
-    public Queue<GameObject> pastaProcessingQueue;
+    public Queue<GameObject> pastaBufferQueue = new Queue<GameObject>();
+    public Queue<GameObject> pastaProcessingQueue = new Queue<GameObject>();
 
     private bool _workFinished;
     private System.Random _random;
@@ -42,6 +41,11 @@ public class Machine : MonoBehaviour
     private float _restorationTime;
 
     private Color initialMachineColor = Color.white;
+
+    public bool IsBroken
+    {
+        get { return _isBroken; }
+    }
 
     public float ProcessingTime
     {
@@ -69,16 +73,13 @@ public class Machine : MonoBehaviour
         _throughput = 1;
 
         // queues
-        pastaBufferQueue = new Queue<GameObject>();
-        pastaProcessingQueue = new Queue<GameObject>();
+        pastaBufferQueue.Clear();
+        pastaProcessingQueue.Clear();
 
         // default flags and parameters
         _isWorking = false;
         _isBroken = false;
         _currentBreakingChance = 0;
-
-        // brr
-        brrr = GetComponentInChildren<Brrr>();
 
         // Timer for progress bar and working queue
         progress_bar = GetComponentInChildren<ProgressBar>();
@@ -113,7 +114,7 @@ public class Machine : MonoBehaviour
             workTimer.Start();
             stopwatch.Start();
         }
-        brrr.GetComponent<SpriteRenderer>().enabled = _isWorking;
+        //brrr.GetComponent<SpriteRenderer>().enabled = _isWorking;     // performance issues
         progress_bar.maximum = ProcessingTime;
         progress_bar.current = stopwatch.ElapsedMilliseconds;
 
@@ -223,7 +224,7 @@ public class Machine : MonoBehaviour
     private void CalculateBreakingChances(GameObject dequeuedParticle)
     {
         _currentBreakingChance += dequeuedParticle.GetComponent<PastaParticle>().isDamaged ? 0.01f : 0;
-        _currentBreakingChance += pastaBufferQueue.Count / 100;
+        _currentBreakingChance += pastaBufferQueue.Count / 40;
         //int particleBrokenRanodmizer = _random.Next(0, 100);
 
         double particleBrokenRanodmizer = GetRandomGaussianNumebr(0.5f, 0.11f);
@@ -234,7 +235,7 @@ public class Machine : MonoBehaviour
             _breakingTime = Time.time;
             _restorationTime = (float)GetRandomGaussianNumebr(0.5f, 0.11f)*10;
         }
-        UnityEngine.Debug.Log(100 * particleBrokenRanodmizer);
+        //UnityEngine.Debug.Log(100 * particleBrokenRanodmizer);
     }
 
     private void CalculateFixingChances()
@@ -252,7 +253,7 @@ public class Machine : MonoBehaviour
     public void Restart()
     {
         Start();
-        UnityEngine.Debug.Log(this.gameObject.name);
+        //UnityEngine.Debug.Log(this.gameObject.name);
     }
 
     #endregion

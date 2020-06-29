@@ -21,12 +21,6 @@ class Arrow : MonoBehaviour
         {
             DrawArrowFromSourceToTarget(this.transform.position, target.position);
         }
-
-    }
-
-    void Update()
-    {
-
     }
 
     private void DrawArrowFromSourceToTarget(Vector2 source, Vector2 target)
